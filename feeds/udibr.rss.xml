@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>udibr</title><link>/</link><description></description><atom:link href="/feeds/udibr.rss.xml" rel="self"></atom:link><lastBuildDate>Tue, 02 Sep 2014 15:51:00 +0200</lastBuildDate><item><title>Testing</title><link>/testing.html</link><description>&lt;p&gt;&lt;div class="videobox"&gt;
-                &lt;iframe width="640" height="390"
-                        src='http://www.youtube.com/v/VVAKFJ8VVp4'
-                        frameborder='0'
-                        webkitAllowFullScreen mozallowfullscreen allowFullScreen&gt;
-                &lt;/iframe&gt;
-            &lt;/div&gt;&lt;/p&gt;
-&lt;p&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>udibr</title><link>/</link><description></description><atom:link href="/feeds/udibr.rss.xml" rel="self"></atom:link><lastBuildDate>Tue, 02 Sep 2014 15:51:00 +0200</lastBuildDate><item><title>Blogin on github</title><link>/blogin-on-github.html</link><description>&lt;p&gt;I decided to follow http://jakevdp.github.io/blog/2013/05/07/migrating-from-octopress-to-pelican/ and try to setup a blog on github which can be used to show code and ipython notebooks.
+You can read about the details &lt;a href="https://github.com/udibr/pelican"&gt;here&lt;/a&gt;
+And here is the result&lt;/p&gt;
+&lt;p&gt;Code:
+&lt;figure class='code'&gt;
+&lt;figcaption&gt;&lt;span&gt;test.py&lt;/span&gt; &lt;a href='/code/test.py'&gt;download&lt;/a&gt;&lt;/figcaption&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;print&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;hello world&amp;quot;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;Notebook:
+
 &lt;div class="cell border-box-sizing code_cell rendered"&gt;
 &lt;div class="input"&gt;
 &lt;div class="prompt input_prompt"&gt;
@@ -80,4 +86,4 @@ In&amp;nbsp;[]:
 &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;/div&gt;&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">udibr</dc:creator><pubDate>Tue, 02 Sep 2014 15:51:00 +0200</pubDate><guid>tag:,2014-09-02:testing.html</guid></item></channel></rss>
+&lt;/div&gt;&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">udibr</dc:creator><pubDate>Tue, 02 Sep 2014 15:51:00 +0200</pubDate><guid>tag:,2014-09-02:blogin-on-github.html</guid></item></channel></rss>

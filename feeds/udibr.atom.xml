@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>udibr</title><link href="/" rel="alternate"></link><link href="/feeds/udibr.atom.xml" rel="self"></link><id>/</id><updated>2014-09-02T15:51:00+02:00</updated><entry><title>Testing</title><link href="/testing.html" rel="alternate"></link><updated>2014-09-02T15:51:00+02:00</updated><author><name>udibr</name></author><id>tag:,2014-09-02:testing.html</id><summary type="html">&lt;p&gt;&lt;div class="videobox"&gt;
-                &lt;iframe width="640" height="390"
-                        src='http://www.youtube.com/v/VVAKFJ8VVp4'
-                        frameborder='0'
-                        webkitAllowFullScreen mozallowfullscreen allowFullScreen&gt;
-                &lt;/iframe&gt;
-            &lt;/div&gt;&lt;/p&gt;
-&lt;p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>udibr</title><link href="/" rel="alternate"></link><link href="/feeds/udibr.atom.xml" rel="self"></link><id>/</id><updated>2014-09-02T15:51:00+02:00</updated><entry><title>Blogin on github</title><link href="/blogin-on-github.html" rel="alternate"></link><updated>2014-09-02T15:51:00+02:00</updated><author><name>udibr</name></author><id>tag:,2014-09-02:blogin-on-github.html</id><summary type="html">&lt;p&gt;I decided to follow http://jakevdp.github.io/blog/2013/05/07/migrating-from-octopress-to-pelican/ and try to setup a blog on github which can be used to show code and ipython notebooks.
+You can read about the details &lt;a href="https://github.com/udibr/pelican"&gt;here&lt;/a&gt;
+And here is the result&lt;/p&gt;
+&lt;p&gt;Code:
+&lt;figure class='code'&gt;
+&lt;figcaption&gt;&lt;span&gt;test.py&lt;/span&gt; &lt;a href='/code/test.py'&gt;download&lt;/a&gt;&lt;/figcaption&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;print&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;hello world&amp;quot;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;/figure&gt;
+
+&lt;p&gt;Notebook:
+
 &lt;div class="cell border-box-sizing code_cell rendered"&gt;
 &lt;div class="input"&gt;
 &lt;div class="prompt input_prompt"&gt;
