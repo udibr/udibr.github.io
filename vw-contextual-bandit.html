@@ -4,7 +4,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>udibr Archive </title>
+  <title>VW contextual bandit</title>
   <meta name="author" content="udibr">
 
   <link href="/atom.xml" type="application/atom+xml" rel="alternate"
@@ -1749,50 +1749,352 @@ jQuery(document).ready(function($) {
     <li >
     <a href="http://udibr.github.io/category/code.html">Code</a>
     </li>
-    <li >
+    <li class="active">
     <a href="http://udibr.github.io/category/ml.html">Ml</a>
     </li>
 </ul></nav>
   <div id="main">
     <div id="content">
 <div>
-	<article role="article">
-    	<header>
-    		<h1 class="entry-title">Blog Archive</h1>
-    	</header>
+  <article class="hentry" role="article">
+<header>
+      <h1 class="entry-title">VW contextual bandit</h1>
+      <p class="meta"><time datetime="2014-11-04T16:44:00" pubdate>Tue 04 November 2014</time></p>
+</header>
 
-    	<div id="blog-archives">
-            <h2>2014</h2>
-                    <article>
-                        <h1><a href="vw-contextual-bandit.html">VW contextual bandit</a></h1>
-                        <time datetime="2014-11-04 16:44:00" pubdate>
-                            <span class="month">Nov</span>
-                            <span class="day">04</span>
-                            <span class="year">2014</span>
-                        </time>
-                        <footer>
-                            <span class="categories">posted in
-                                <a class='category' href='/category/ml.html'>ML</a>
-                                
-                            </span>
-                        </footer>
-                    </article>
-                    <article>
-                        <h1><a href="blogin-on-github.html">Blogin on github</a></h1>
-                        <time datetime="2014-09-02 15:51:00" pubdate>
-                            <span class="month">Sep</span>
-                            <span class="day">02</span>
-                            <span class="year">2014</span>
-                        </time>
-                        <footer>
-                            <span class="categories">posted in
-                                <a class='category' href='/category/code.html'>Code</a>
-                                
-                            </span>
-                        </footer>
-                    </article>
-	    </div>
-    </article>
+  <div class="entry-content"><p>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The task of contextual bandit is to find a policy $\pi$ for deciding what action $a$ to take given a context vectory $x$</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The goal is to find a policy which maximizes the reward $V^\pi = E(r_{\pi(x)})$</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>one problem is how to measure the performance on offline data which was not collected with $\pi$.
+Instead we have a sample of $(x,a,r_a)$ made by a different policy. For example a policy which uniformally sample from all available actions <em>a</em> regardless of <em>x</em></p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Part 4 in <a href="http://www.research.rutgers.edu/~lihong/pub/Li10Contextual.pdf">A Contextual-Bandit Approach to Personalized News Article Recommendation</a>
+describes how to test a bandit using offline data. But it was limited to a collection made with fixed (equal) probability for every arm $p(a) = 1/K$. This is a special case of <em>inverse propensity score</em> (IPS) method in which the probability $\hat{p}(a|x)$ for every arm selection <em>a</em> is predicted based on the context <em>x</em> </p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>$\hat{V}^\pi_{\mbox{IPS}} = \hat{E}(\frac{r_a I(\pi(x)=a)}{\hat{p}(a|x)})$</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>where $\hat{E}$ is averaging over all our samples in the offline data</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>A different approach is the <em>direct method</em> (DM) which predicts the reward <em>r</em> for every arm selection $\hat{\rho}_a(x)$</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>$\hat{V}^\pi_{\mbox{DM}} = \hat{E}(\hat{\rho}_{\pi(x)}(x))$</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a href="https://github.com/JohnLangford/vowpal_wabbit/wiki/Contextual-Bandit-Example">VW has a unit</a> that implements contextual bandit using offline data. Based on <a href="http://arxiv.org/abs/1103.4601">&quot;Doubly Robust Policy Evaluation and Learning&quot;, by Miroslav Dudik, John Langford and Lihong Li. In ICML 2011.</a></p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>$\hat{V}^\pi_{\mbox{DR}} = \hat{E}(\frac{(r_a - \hat{\rho}_a(x))I(\pi(x)=a)}{\hat{p}(a|x)} + \hat{\rho}_{\pi(x)}(x))$</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>It is not clear to me what is the policy $\pi$ being optimized in VW. DR is just a way to evaluate it</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">
+In&nbsp;[15]:
+</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class="highlight-ipynb"><pre class="ipynb"><span class="o">%%</span><span class="k">writefile</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">train</span><span class="o">.</span><span class="n">dat</span>
+<span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">:</span><span class="mf">0.4</span> <span class="o">|</span> <span class="n">a</span> <span class="n">c</span>  
+<span class="mi">3</span><span class="p">:</span><span class="mf">0.5</span><span class="p">:</span><span class="mf">0.2</span> <span class="o">|</span> <span class="n">b</span> <span class="n">d</span>  
+<span class="mi">4</span><span class="p">:</span><span class="mf">1.2</span><span class="p">:</span><span class="mf">0.5</span> <span class="o">|</span> <span class="n">a</span> <span class="n">b</span> <span class="n">c</span>  
+<span class="mi">2</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span><span class="mf">0.3</span> <span class="o">|</span> <span class="n">b</span> <span class="n">c</span>  
+<span class="mi">3</span><span class="p">:</span><span class="mf">1.5</span><span class="p">:</span><span class="mf">0.7</span> <span class="o">|</span> <span class="n">a</span> <span class="n">d</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+Writing /tmp/train.dat
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">
+In&nbsp;[16]:
+</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class="highlight-ipynb"><pre class="ipynb"><span class="o">!</span>vw -d /tmp/train.dat --cb 4 -f cb.model 
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+Num weight bits = 18
+learning rate = 0.5
+initial_t = 0
+power_t = 0.5
+final_regressor = cb.model
+using no cache
+Reading datafile = /tmp/train.dat
+num sources = 1
+average    since         example     example  current  current  current
+loss       last          counter      weight    label  predict features
+*estimate* *estimate*                                                avglossreg last pred  last correct
+5.000000   5.000000          1      1.0    known        1        3   4.000000   0.000000   2.000000  
+2.500000   0.000000          2      2.0    known        2        3   2.125000   0.000000   0.500000  
+2.083333   1.666667          4      4.0    known        2        3   1.672500   0.000000   1.000000  
+
+finished run
+number of examples per pass = 5
+passes used = 1
+weighted example sum = 5
+weighted label sum = 0
+average loss = 1.69347
+best constant = 0
+total feature number = 16
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="prediciton">prediciton<a class="anchor-link" href="#prediciton">&#182;</a></h2>
+</div>
+</div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">
+In&nbsp;[13]:
+</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class="highlight-ipynb"><pre class="ipynb"><span class="o">%%</span><span class="k">writefile</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">test</span><span class="o">.</span><span class="n">dat</span>
+<span class="mi">1</span><span class="p">:</span><span class="mi">2</span> <span class="mi">3</span><span class="p">:</span><span class="mi">5</span> <span class="mi">4</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span><span class="mf">0.6</span> <span class="o">|</span> <span class="n">a</span> <span class="n">c</span> <span class="n">d</span>  
+<span class="mi">1</span><span class="p">:</span><span class="mf">0.5</span> <span class="mi">2</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span><span class="mf">0.4</span> <span class="mi">3</span><span class="p">:</span><span class="mi">2</span> <span class="mi">4</span><span class="p">:</span><span class="mf">1.5</span> <span class="o">|</span> <span class="n">c</span> <span class="n">d</span> 
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+Writing /tmp/test.dat
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">
+In&nbsp;[14]:
+</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class="highlight-ipynb"><pre class="ipynb"><span class="o">!</span>vw -t -d /tmp/test.dat -i cb.model -p out
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+only testing
+Num weight bits = 18
+learning rate = 10
+initial_t = 1
+power_t = 0.5
+predictions = out
+using no cache
+Reading datafile = /tmp/test.dat
+num sources = 1
+average    since         example     example  current  current  current
+loss       last          counter      weight    label  predict features
+*estimate* *estimate*                                                avglossreg last pred  last correct
+1.000000   1.000000          1      1.0    known        4        4   0.318207   0.435902   1.000000  
+1.000000   1.000000          2      2.0    known        2        3   0.426955   0.268082   1.000000  
+
+finished run
+number of examples per pass = 2
+passes used = 1
+weighted example sum = 2
+weighted label sum = 0
+average loss = 1
+best constant = -1
+total feature number = 7
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">
+In&nbsp;[11]:
+</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class="highlight-ipynb"><pre class="ipynb"><span class="o">!</span>cat out
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+4.000000
+2.000000
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div></p></div>
+    <footer>
+<p class="meta">
+  <span class="byline author vcard">
+    Posted by <span class="fn">udibr</span>
+  </span>
+<time datetime="2014-11-04T16:44:00" pubdate>Tue 04 November 2014</time></p><div class="sharing">
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://udibr.github.io/vw-contextual-bandit.html" data-via="udibr" data-counturl="http://udibr.github.io/vw-contextual-bandit.html" >Tweet</a>
+</div>    </footer>
+  </article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></div>
+  </section>
 </div>
 <aside class="sidebar">
   <section>
@@ -1833,6 +2135,9 @@ jQuery(document).ready(function($) {
 </p></footer>
 	<script type="text/javascript">
 	  var disqus_shortname = 'udibr';
+          var disqus_identifier = '/vw-contextual-bandit.html';
+          var disqus_url = 'http://udibr.github.io/vw-contextual-bandit.html';
+          var disqus_title = 'VW contextual bandit';
 	  (function() {
 	    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
 	    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
