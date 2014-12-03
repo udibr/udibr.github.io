@@ -4,7 +4,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>VW contextual bandit</title>
+  <title>Getting deeper into deep learning</title>
   <meta name="author" content="udibr">
 
   <link href="/atom.xml" type="application/atom+xml" rel="alternate"
@@ -1746,10 +1746,10 @@ jQuery(document).ready(function($) {
 </form>
 
 <ul class="main-navigation">
-    <li >
+    <li class="active">
     <a href="http://udibr.github.io/category/code.html">Code</a>
     </li>
-    <li class="active">
+    <li >
     <a href="http://udibr.github.io/category/ml.html">Ml</a>
     </li>
 </ul></nav>
@@ -1758,383 +1758,24 @@ jQuery(document).ready(function($) {
 <div>
   <article class="hentry" role="article">
 <header>
-      <h1 class="entry-title">VW contextual bandit</h1>
-      <p class="meta"><time datetime="2014-11-04T16:44:00" pubdate>Tue 04 November 2014</time></p>
+      <h1 class="entry-title">Getting deeper into deep learning</h1>
+      <p class="meta"><time datetime="2014-12-03T10:34:00" pubdate>Wed 03 December 2014</time></p>
 </header>
 
-  <div class="entry-content"><p>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>The task of contextual bandit is to find a policy $\pi$ for deciding what action $a$ to take given a context $x$ or $a = \pi(x)$</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>The goal is to find a policy which maximizes the reward $V^\pi = E(r_{\pi(x)})$</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>one problem is how to measure the performance using offline data which was <strong>not</strong> collected with $\pi$.
-Instead we have a sample of $(x,a,r_a)$ made by a different policy. For example a policy which uniformally sample from all available actions <em>a</em> regardless of <em>x</em></p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Part 4 in <a href="http://www.research.rutgers.edu/~lihong/pub/Li10Contextual.pdf">A Contextual-Bandit Approach to Personalized News Article Recommendation</a>
-describes how to test a bandit using offline data. But it was limited to a collection made with fixed (equal) probability for every arm $p(a) = 1/K$. This is a special case of <em>inverse propensity score</em> (IPS) method in which the probability $\hat{p}(a|x)$ for every arm selection <em>a</em> is predicted based on the context <em>x</em> </p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>$\hat{V}^\pi_{\mbox{IPS}} = \hat{E}(\frac{r_a I(\pi(x)=a)}{\hat{p}(a|x)})$</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>where $\hat{E}$ is averaging over all our samples in the offline data</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>A different approach is the <em>direct method</em> (DM) which predicts the reward <em>r</em> for every arm selection $\hat{\rho}_a(x)$</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>$\hat{V}^\pi_{\mbox{DM}} = \hat{E}(\hat{\rho}_{\pi(x)}(x))$</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><a href="http://arxiv.org/abs/1103.4601">&quot;Doubly Robust Policy Evaluation and Learning&quot;, by Miroslav Dudik, John Langford and Lihong Li. In ICML 2011.</a> combine the two methods using</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>$\hat{V}^\pi_{\mbox{DR}} = \hat{E}(\frac{(r_a - \hat{\rho}_a(x))I(\pi(x)=a)}{\hat{p}(a|x)} + \hat{\rho}_{\pi(x)}(x))$</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="VW">VW<a class="anchor-link" href="#VW">&#182;</a></h1>
-</div>
-</div>
-</div>
-
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><a href="https://github.com/JohnLangford/vowpal_wabbit/wiki/Contextual-Bandit-Example">VW has a unit</a> that implements contextual bandit using offline data. </p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Evaluation-a-policy-on-offline-data">Evaluation a policy on offline data<a class="anchor-link" href="#Evaluation-a-policy-on-offline-data">&#182;</a></h2>
-</div>
-</div>
-</div>
-
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>It is not clear to me what is the policy $\pi$ being evaluated or optimized in VW (after all DR is just a way to evaluate it.)</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>The wiki gives the folowing example</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">
-In&nbsp;[1]:
-</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class="highlight-ipynb"><pre class="ipynb"><span class="o">%%</span><span class="k">writefile</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">train</span><span class="o">.</span><span class="n">dat</span>
-<span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">:</span><span class="mf">0.4</span> <span class="o">|</span> <span class="n">a</span> <span class="n">c</span>  
-<span class="mi">3</span><span class="p">:</span><span class="mf">0.5</span><span class="p">:</span><span class="mf">0.2</span> <span class="o">|</span> <span class="n">b</span> <span class="n">d</span>  
-<span class="mi">4</span><span class="p">:</span><span class="mf">1.2</span><span class="p">:</span><span class="mf">0.5</span> <span class="o">|</span> <span class="n">a</span> <span class="n">b</span> <span class="n">c</span>  
-<span class="mi">2</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span><span class="mf">0.3</span> <span class="o">|</span> <span class="n">b</span> <span class="n">c</span>  
-<span class="mi">3</span><span class="p">:</span><span class="mf">1.5</span><span class="p">:</span><span class="mf">0.7</span> <span class="o">|</span> <span class="n">a</span> <span class="n">d</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>
-Overwriting /tmp/train.dat
-
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">
-In&nbsp;[2]:
-</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class="highlight-ipynb"><pre class="ipynb"><span class="o">!</span>vw -d /tmp/train.dat --cb 4 -f /tmp/cb.model
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>
-Num weight bits = 18
-learning rate = 0.5
-initial_t = 0
-power_t = 0.5
-final_regressor = /tmp/cb.model
-using no cache
-Reading datafile = /tmp/train.dat
-num sources = 1
-average    since         example     example  current  current  current
-loss       last          counter      weight    label  predict features
-*estimate* *estimate*                                                avglossreg last pred  last correct
-5.000000   5.000000          1      1.0    known        1        3   4.000000   0.000000   2.000000  
-2.500000   0.000000          2      2.0    known        2        3   2.125000   0.000000   0.500000  
-2.083333   1.666667          4      4.0    known        2        3   1.672500   0.000000   1.000000  
-
-finished run
-number of examples per pass = 5
-passes used = 1
-weighted example sum = 5
-weighted label sum = 0
-average loss = 1.69347
-best constant = 0
-total feature number = 16
-
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="prediciton">prediciton<a class="anchor-link" href="#prediciton">&#182;</a></h2>
-</div>
-</div>
-</div>
-
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>the policy from previous step <code>/tmp/cb.model</code> can be applied to new test data</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">
-In&nbsp;[3]:
-</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class="highlight-ipynb"><pre class="ipynb"><span class="o">%%</span><span class="k">writefile</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">test</span><span class="o">.</span><span class="n">dat</span>
-<span class="mi">1</span><span class="p">:</span><span class="mi">2</span> <span class="mi">3</span><span class="p">:</span><span class="mi">5</span> <span class="mi">4</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span><span class="mf">0.6</span> <span class="o">|</span> <span class="n">a</span> <span class="n">c</span> <span class="n">d</span>  
-<span class="mi">1</span><span class="p">:</span><span class="mf">0.5</span> <span class="mi">2</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span><span class="mf">0.4</span> <span class="mi">3</span><span class="p">:</span><span class="mi">2</span> <span class="mi">4</span><span class="p">:</span><span class="mf">1.5</span> <span class="o">|</span> <span class="n">c</span> <span class="n">d</span> 
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>
-Overwriting /tmp/test.dat
-
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">
-In&nbsp;[4]:
-</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class="highlight-ipynb"><pre class="ipynb"><span class="o">!</span>vw -t -d /tmp/test.dat -i /tmp/cb.model -p /tmp/out
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>
-only testing
-Num weight bits = 18
-learning rate = 10
-initial_t = 1
-power_t = 0.5
-predictions = /tmp/out
-using no cache
-Reading datafile = /tmp/test.dat
-num sources = 1
-average    since         example     example  current  current  current
-loss       last          counter      weight    label  predict features
-*estimate* *estimate*                                                avglossreg last pred  last correct
-1.000000   1.000000          1      1.0    known        4        4   0.318207   0.435902   1.000000  
-1.000000   1.000000          2      2.0    known        2        3   0.426955   0.268082   1.000000  
-
-finished run
-number of examples per pass = 2
-passes used = 1
-weighted example sum = 2
-weighted label sum = 0
-average loss = 1
-best constant = -1
-total feature number = 7
-
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">
-In&nbsp;[5]:
-</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class="highlight-ipynb"><pre class="ipynb"><span class="o">!</span>cat /tmp/out
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>
-4.000000
-2.000000
-
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div></p></div>
+  <div class="entry-content"><p>What do you prefer? Coffe, Tea? or should I ask CAFFE or ThEAno?</p>
+<p>These days there are two main tracks to doing deep learning. Either use <a href="http://deeplearning.net/software/pylearn2/">Pylearn2</a>/Theano or use <a href="http://caffe.berkeleyvision.org/">Caffe</a>. Pyearn2 is <a href="http://fastml.com/how-to-get-predictions-from-pylearn2/">very confusing cto use</a> but I've found a very nice video lecture showing how to bypass Pylearn2 and do learning directly with Theano. My notebooks made from the code of the lecture can be found <a href="http://nbviewer.ipython.org/github/udibr/Theano-Tutorials/blob/master/notebooks/index.ipynb">here</a>.</p>
+<p>Theano is easy to install (on OS X or Ubuntu) and
+in Theano you have full control of the algorithm beeing used, this make it ideal for researching new ways of doing things. For example, if your data has special structure to it or if you want to use a special loss function.</p>
+<p>I've found out that running the last network of the tutorial crashes my Mac when running on a GPU. I think it is a result of GPU overheating so it could be a local problem.</p>
+<p>Caffe is much easier to use. The setup is a little bit complex but I found it is <a href="https://github.com/udibr/caffe-on-aws">easy to setup an image on Amazon's AWS EC2</a>. The price per hour of a GPU machine on AWS (g2.2xlarge) is surprisingly low but you can get even lower price using spot instances. I've used spot instances for many hours without any unexpected termination (looks like there is less peak demand for these machines.) The only downside of spot is that you can not stop/start the machine but you can always create an image of your work.</p>
+<p>Caffe looks to me to be much faster than Theano both in development time and running time. The downside is that you have to use one of the pre-built modules for everything. Another problem is when running the python interface to Caffe from an ipython notebook. If you have an error in your configuration files (protobufs) the entire ipython engine crash and you have to re-run the entire notebook.</p></div>
     <footer>
 <p class="meta">
   <span class="byline author vcard">
     Posted by <span class="fn">udibr</span>
   </span>
-<time datetime="2014-11-04T16:44:00" pubdate>Tue 04 November 2014</time></p><div class="sharing">
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://udibr.github.io/vw-contextual-bandit.html" data-via="udibr" data-counturl="http://udibr.github.io/vw-contextual-bandit.html" >Tweet</a>
+<time datetime="2014-12-03T10:34:00" pubdate>Wed 03 December 2014</time></p><div class="sharing">
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://udibr.github.io/getting-deeper-into-deep-learning.html" data-via="udibr" data-counturl="http://udibr.github.io/getting-deeper-into-deep-learning.html" >Tweet</a>
 </div>    </footer>
   </article>
 
@@ -2185,9 +1826,9 @@ In&nbsp;[5]:
 </p></footer>
 	<script type="text/javascript">
 	  var disqus_shortname = 'udibr';
-          var disqus_identifier = '/vw-contextual-bandit.html';
-          var disqus_url = 'http://udibr.github.io/vw-contextual-bandit.html';
-          var disqus_title = 'VW contextual bandit';
+          var disqus_identifier = '/getting-deeper-into-deep-learning.html';
+          var disqus_url = 'http://udibr.github.io/getting-deeper-into-deep-learning.html';
+          var disqus_title = 'Getting deeper into deep learning';
 	  (function() {
 	    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
 	    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
