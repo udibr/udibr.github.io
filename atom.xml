@@ -644,7 +644,7 @@ table.dataframe th, td {
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;I decided to follow &lt;a href="http://jakevdp.github.io/blog/2013/05/07/migrating-from-octopress-to-pelican/"&gt;Jake&lt;/a&gt; and try to setup a blog on github which can be used to show code and ipython notebooks. You can read about the details here And here is the result.&lt;/p&gt;
+&lt;p&gt;I decided to follow &lt;a href="http://jakevdp.github.io/blog/2013/05/07/migrating-from-octopress-to-pelican/"&gt;Jake&lt;/a&gt; and try to setup a blog on github which can be used to show code and ipython notebooks. You can read about the details &lt;a href="https://github.com/udibr/pelican"&gt;here&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Notebook example:&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
