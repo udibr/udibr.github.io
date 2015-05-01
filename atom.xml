@@ -47,7 +47,7 @@ boot-args   kext-dev-mode=1 nvda_drv=1
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;In these files look for the sections that begin with &lt;key&gt;CFBundleIdentifier&lt;/key&gt; and add, just before the &lt;/dict&gt;&lt;/p&gt;
+&lt;p&gt;In these files look for the sections that begin with &lt;code&gt;&amp;lt;key&amp;gt;CFBundleIdentifier&amp;lt;/key&amp;gt;&lt;/code&gt; and add, just before the &lt;code&gt;&amp;lt;/dict&amp;gt;&lt;/code&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nt"&gt;&amp;lt;key&amp;gt;&lt;/span&gt;IOPCITunnelCompatible&lt;span class="nt"&gt;&amp;lt;/key&amp;gt;&lt;/span&gt;
 &lt;span class="nt"&gt;&amp;lt;true/&amp;gt;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
