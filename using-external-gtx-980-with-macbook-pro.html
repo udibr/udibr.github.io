@@ -4,7 +4,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>udibr</title>
+  <title>using external GTX 980 with MacBook pro</title>
   <meta name="author" content="udibr">
 
   <link href="/atom.xml" type="application/atom+xml" rel="alternate"
@@ -1755,74 +1755,122 @@ jQuery(document).ready(function($) {
 </ul></nav>
   <div id="main">
     <div id="content">
-<div class="blog-index">
-  		<article>
+<div>
+  <article class="hentry" role="article">
 <header>
-      <h1 class="entry-title">
-        <a href="http://udibr.github.io/using-external-gtx-980-with-macbook-pro.html">using external GTX 980 with MacBook pro</a>
-      </h1>
+      <h1 class="entry-title">using external GTX 980 with MacBook pro</h1>
       <p class="meta"><time datetime="2015-05-01T18:13:00-04:00" pubdate>Fri 01 May 2015</time></p>
 </header>
 
-  <div class="entry-content"><p>I have a working setup made from MacBook Pro (Retina, Mid 2012) connected to an external GPU card – GTX 980. The card is placed in PCIe box that is connected to the laptop with a thunderbolt 2 cable which gives a throughput of 10Gb/s (latter MBP supports 16Gb/s ...</p></div>
-  <footer>
-    <a rel="full-article" href="http://udibr.github.io/using-external-gtx-980-with-macbook-pro.html">Read On &crarr;</a>
-  </footer>
-  		</article>
-  		<article>
-<header>
-      <h1 class="entry-title">
-        <a href="http://udibr.github.io/getting-deeper-into-deep-learning.html">Getting deeper into deep learning</a>
-      </h1>
-      <p class="meta"><time datetime="2014-12-03T10:34:00-05:00" pubdate>Wed 03 December 2014</time></p>
-</header>
+  <div class="entry-content"><p>I have a working setup made from MacBook Pro (Retina, Mid 2012) connected to an external GPU card – GTX 980. The card is placed in PCIe box that is connected to the laptop with a thunderbolt 2 cable which gives a throughput of 10Gb/s (latter MBP supports 16Gb/s but the PCIe box is in any case limited to the lower rate.) The GPU card is too big for the box so I had to give up on the box cover and cut out and fold the front of the box. The GPU also requires an external 500W power supply.</p>
+<p><img alt="external GPU connected to MacBook Pro" src="https://pbs.twimg.com/media/CDjmbmYWAAEE_SV.jpg" /></p>
+<p>Hardware:</p>
+<ul>
+<li><a href="http://www.amazon.com/gp/product/B00LTAUTHE">Akitio Thunder2 PCIe Box</a> it comes with a thunderbolt cable.</li>
+<li><a href="http://www.amazon.com/gp/product/B00NT9UT3M">EVGA GTX 980 SC ACX 2.0 4GB GDDR5 Graphics Card</a> you can find reduced price for this card on Amazon or eBay.</li>
+<li>I used an old power supply I have, DYNEX DX-520WPS.
+The GPU card came with electric connectors for the power supply in case you don’t have the right ones.</li>
+</ul>
+<p>I then followed <a href="http://www.journaldulapin.com/2014/12/04/a-nvidia-maxwell-card-with-thunderbolt-on-a-mac-running-yosemite/">this site</a> with some  differences:</p>
+<p>Look for the latest Nvidia WebDriver version. I found you can get it at https://gfe.nvidia.com/mac-update for example</p>
+<div class="highlight"><pre>wget http://us.download.nvidia.com/Mac/Quadro_Certified/346.01.02f02/WebDriver-346.01.02f02.pkg
+pkgutil --expand WebDriver-346.01.02f02.pkg WebDriver
+cd WebDriver
+</pre></div>
 
-  <div class="entry-content"><p>What do you prefer? Coffee, Tea? or should I ask CAFFE or ThEAno?</p>
-<p>These days there are two main tracks to doing deep learning. Either use <a href="http://deeplearning.net/software/pylearn2/">Pylearn2</a>/Theano or use <a href="http://caffe.berkeleyvision.org/">Caffe</a>. Pyearn2 is <a href="http://fastml.com/how-to-get-predictions-from-pylearn2/">very confusing to use</a> but I've found a very nice video lecture showing how to bypass ...</p></div>
-  <footer>
-    <a rel="full-article" href="http://udibr.github.io/getting-deeper-into-deep-learning.html">Read On &crarr;</a>
-  </footer>
-  		</article>
-  		<article>
-<header>
-      <h1 class="entry-title">
-        <a href="http://udibr.github.io/vw-contextual-bandit.html">VW contextual bandit</a>
-      </h1>
-      <p class="meta"><time datetime="2014-11-04T16:44:00-05:00" pubdate>Tue 04 November 2014</time></p>
-</header>
 
-  <div class="entry-content"><html><body><div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>The task of contextual bandit is to find a policy $\pi$ for deciding what action $a$ to take given a context $x$ or $a = \pi(x)$</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>The goal is to find a policy which maximizes the reward $V^\pi = E(r_{\pi(x)})$</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>one problem is how to measure the performance using offline data which was <strong>not</strong></div>
-  <footer>
-    <a rel="full-article" href="http://udibr.github.io/vw-contextual-bandit.html">Read On &crarr;</a>
-  </footer>
-  		</article>
-<div class="pagination">
+<p>edit the <code>Distribution</code> file,  replace the line <code>var found_hardware = 0;</code> by <code>var found_hardware = 1;</code></p>
+<div class="highlight"><pre>cd ../
+pkgutil --flatten WebDriver WebDriver-346.01.02f02_mod.pkg
+</pre></div>
 
-  <br />
-</div></div>
+
+<p>Install the modified <code>pkg</code>.</p>
+<p>We have an unsigned driver so we need to disable signature checking.</p>
+<div class="highlight"><pre>sudo nvram boot-args=&quot;kext-dev-mode=1&quot;
+</pre></div>
+
+
+<p>but be careful: you may already have set other boot-args. To check, use the command</p>
+<div class="highlight"><pre>nvram boot-args
+</pre></div>
+
+
+<p>If that prints any values (e.g. "iog=0x0"), add them to the above command using a comma, like this: <code>sudo nvram boot-args=kext-dev-mode=1,iog=0x0</code> and latter to disable the <code>kext-dev-mode</code>, do not use the <code>-d</code> command but rather omit that part when setting the old boot-args</p>
+<p>In my case I ended up with:</p>
+<div class="highlight"><pre>nvram boot-args
+boot-args   kext-dev-mode=1 nvda_drv=1
+</pre></div>
+
+
+<p>Reboot the machine and now edit the following files</p>
+<div class="highlight"><pre>/System/Library/Extensions/NVDAStartup.kext
+/System/Library/Extensions/IONDRVSupport.kext
+/System/Library/Extensions/AppleHDA.kext/Contents/PlugIns/AppleHDAController.kext
+</pre></div>
+
+
+<p>In these files look for the sections that begin with <key>CFBundleIdentifier</key> and add, just before the </dict></p>
+<div class="highlight"><pre><span class="nt">&lt;key&gt;</span>IOPCITunnelCompatible<span class="nt">&lt;/key&gt;</span>
+<span class="nt">&lt;true/&gt;</span>
+</pre></div>
+
+
+<p>then 
+instead of running <code>Kext Utility</code>
+or
+<code>sudo kextcache -system-caches</code> do the following:</p>
+<div class="highlight"><pre>sudo touch /System/Library/Extensions/
+</pre></div>
+
+
+<p>Install latest CUDA or update an existing CUDA driver from system preferences (I had problems with an older version.) My version is</p>
+<div class="highlight"><pre>CUDA Driver Version: 7.0.36
+GPU Driver Version: 10.3.7 (346.01.02f02)
+</pre></div>
+
+
+<p>as always you will need to set some environment variables to the location of the CUDA install:</p>
+<div class="highlight"><pre><span class="x">export PATH=/Developer/NVIDIA/CUDA-7.0/bin:</span><span class="p">$</span><span class="nv">PATH</span><span class="x"></span>
+<span class="x">export DYLD_LIBRARY_PATH=/Developer/NVIDIA/CUDA-7.0/lib:</span><span class="p">$</span><span class="nv">DYLD_LIBRARY_PATH</span><span class="x"></span>
+</pre></div>
+
+
+<p>I also installed
+ <a href="http://bjango.com/mac/istatmenus/">iStat Menu</a>
+to track GPU usage</p>
+<p>Now its time to connect the PCIe box to the laptop. The following ritual works for me:</p>
+<ul>
+<li>Shutdown laptop (reset is not enough),</li>
+<li>connect thunderbolt,</li>
+<li>power GPU and PCI box</li>
+<li>wait few seconds</li>
+<li>power off</li>
+<li>and after about two seconds</li>
+<li>power on again</li>
+<li>turn turn on laptop</li>
+</ul>
+<p>to disconnect:</p>
+<ul>
+<li>shutdown laptop</li>
+<li>power off GPU and PCI expansion board</li>
+<li>disconnect thunderbolt</li>
+</ul></div>
+    <footer>
+<p class="meta">
+  <span class="byline author vcard">
+    Posted by <span class="fn">udibr</span>
+  </span>
+<time datetime="2015-05-01T18:13:00-04:00" pubdate>Fri 01 May 2015</time></p><div class="sharing">
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://udibr.github.io/using-external-gtx-980-with-macbook-pro.html" data-via="udibr" data-counturl="http://udibr.github.io/using-external-gtx-980-with-macbook-pro.html" >Tweet</a>
+</div>    </footer>
+  </article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></div>
+  </section>
+</div>
 <aside class="sidebar">
   <section>
     <h1>Recent Posts</h1>
@@ -1831,10 +1879,16 @@ jQuery(document).ready(function($) {
           <a href="http://udibr.github.io/using-external-gtx-980-with-macbook-pro.html">using external GTX 980 with MacBook pro</a>
       </li>
       <li class="post">
+          <a href="http://udibr.github.io/command-line-for-cleaning-the-cells-of-an-ipython-notebook.html">Command line for cleaning the cells of an ipython notebook</a>
+      </li>
+      <li class="post">
           <a href="http://udibr.github.io/getting-deeper-into-deep-learning.html">Getting deeper into deep learning</a>
       </li>
       <li class="post">
           <a href="http://udibr.github.io/vw-contextual-bandit.html">VW contextual bandit</a>
+      </li>
+      <li class="post">
+          <a href="http://udibr.github.io/blogin-on-github.html">Blogin on github</a>
       </li>
     </ul>
   </section>
@@ -1865,6 +1919,9 @@ jQuery(document).ready(function($) {
 </p></footer>
 	<script type="text/javascript">
 	  var disqus_shortname = 'udibr';
+          var disqus_identifier = '/using-external-gtx-980-with-macbook-pro.html';
+          var disqus_url = 'http://udibr.github.io/using-external-gtx-980-with-macbook-pro.html';
+          var disqus_title = 'using external GTX 980 with MacBook pro';
 	  (function() {
 	    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
 	    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
