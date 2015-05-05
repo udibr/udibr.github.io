@@ -89,9 +89,9 @@ to track GPU usage&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;In the CPU menu of iStat Menu&lt;/li&gt;
 &lt;li&gt;In About This Mac-&amp;gt;System Report...-&amp;gt;Hardware-&amp;gt;Graphics/Displays&lt;/li&gt;
-&lt;li&gt;running CUDA's deviceQuery (which you need to build yourself first)
-I've noticed that if you do a reboot you have to wait few seconds until the GPU is recognized.&lt;/li&gt;
+&lt;li&gt;running CUDA's deviceQuery (which you need to build yourself first)&lt;/li&gt;
 &lt;/ul&gt;
+&lt;p&gt;I've noticed that if you do a reboot you have to wait few seconds until the GPU is recognized.&lt;/p&gt;
 &lt;p&gt;To disconnect:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;shutdown laptop&lt;/li&gt;
