@@ -1796,7 +1796,7 @@ pkgutil --flatten WebDriver WebDriver-346.01.02f02_mod.pkg
 </pre></div>
 
 
-<p>If that prints any values (e.g. "iog=0x0"), add them to the above command using a comma, like this: <code>sudo nvram boot-args=kext-dev-mode=1,iog=0x0</code> and latter to disable the <code>kext-dev-mode</code>, do not use the <code>-d</code> command but rather omit that part when setting the old boot-args</p>
+<p>If that prints any values (e.g. "iog=0x0"), add them to the above command using a comma, like this: <code>sudo nvram boot-args="kext-dev-mode=1 iog=0x0"</code> and latter to disable the <code>kext-dev-mode</code>, do not use the <code>-d</code> command but rather omit that part when setting the old boot-args</p>
 <p>In my case I ended up with:</p>
 <div class="highlight"><pre>nvram boot-args
 boot-args   kext-dev-mode=1 nvda_drv=1
