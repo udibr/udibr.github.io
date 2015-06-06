@@ -92,7 +92,6 @@ to track GPU usage&lt;/p&gt;
 &lt;li&gt;running CUDA's deviceQuery (which you need to build yourself first)&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;I've noticed that if you do a reboot you have to wait few seconds until the GPU is recognized.&lt;/p&gt;
-&lt;p&gt;I was surprised to find out that after making sure everything is working, I was able to reset the &lt;code&gt;nvram&lt;/code&gt; (see above) and the GPU continued to work. This looks to me like an important step in term of security.&lt;/p&gt;
 &lt;p&gt;To disconnect:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;shutdown laptop&lt;/li&gt;
