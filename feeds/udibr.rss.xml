@@ -10,7 +10,7 @@ The GPU card came with electric connectors for the power supply in case you donâ
 &lt;/ul&gt;
 &lt;p&gt;I then followed &lt;a href="http://www.journaldulapin.com/2014/12/04/a-nvidia-maxwell-card-with-thunderbolt-on-a-mac-running-yosemite/"&gt;this site&lt;/a&gt; with some  differences:&lt;/p&gt;
 &lt;p&gt;Look for the latest Nvidia WebDriver version. I found you can get it at https://gfe.nvidia.com/mac-update for example&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;wget http://us.download.nvidia.com/Mac/Quadro_Certified/346.01.02f02/WebDriver-346.01.02f02.pkg
+&lt;div class="highlight"&gt;&lt;pre&gt;wget http://us.download.nvidia.com/Mac/Quadro_Certified/346.01.03f01/WebDriver-346.01.03f01.pkg
 pkgutil --expand WebDriver-346.01.02f02.pkg WebDriver
 cd WebDriver
 &lt;/pre&gt;&lt;/div&gt;
@@ -97,6 +97,18 @@ to track GPU usage&lt;/p&gt;
 &lt;li&gt;shutdown laptop&lt;/li&gt;
 &lt;li&gt;power off GPU and PCI expansion board&lt;/li&gt;
 &lt;li&gt;disconnect thunderbolt&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;When not in use:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;switch from NVIDIA Web Driver to OS X Default Graphics Driver using NVIDIA Driver Manager (you can use the icon that appears at the top right of your menu.)&lt;/li&gt;
+&lt;li&gt;reboot&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;cleanup nvram:&lt;/p&gt;
+&lt;p&gt;nvram -d boot-args&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Shut Down...&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ul&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">udibr</dc:creator><pubDate>Fri, 01 May 2015 18:13:00 -0400</pubDate><guid>tag:udibr.github.io,2015-05-01:using-external-gtx-980-with-macbook-pro.html</guid></item><item><title>Command line for cleaning the cells of an ipython notebook</title><link>http://udibr.github.io/command-line-for-cleaning-the-cells-of-an-ipython-notebook.html</link><description>&lt;p&gt;Once in a while I have an ipython notebook that has so much stuff written into its output cells that it takes forever to open it in the browser. In some cases the browser crash, blocking me from reaching the menu option to clear all the cells in the notebook.&lt;/p&gt;
 &lt;p&gt;I therefore wrote &lt;a href="https://gist.github.com/udibr/1d4c71b79dfd360b087d"&gt;this code&lt;/a&gt; to clear the output of all the cells (and the prompt numbers.) With it I can run the code as a command line before attempting to open the notebook from the ipython notebook server.&lt;/p&gt;
 &lt;p&gt;Code example:

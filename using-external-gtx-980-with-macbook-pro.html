@@ -1773,7 +1773,7 @@ The GPU card came with electric connectors for the power supply in case you donâ
 </ul>
 <p>I then followed <a href="http://www.journaldulapin.com/2014/12/04/a-nvidia-maxwell-card-with-thunderbolt-on-a-mac-running-yosemite/">this site</a> with some  differences:</p>
 <p>Look for the latest Nvidia WebDriver version. I found you can get it at https://gfe.nvidia.com/mac-update for example</p>
-<div class="highlight"><pre>wget http://us.download.nvidia.com/Mac/Quadro_Certified/346.01.02f02/WebDriver-346.01.02f02.pkg
+<div class="highlight"><pre>wget http://us.download.nvidia.com/Mac/Quadro_Certified/346.01.03f01/WebDriver-346.01.03f01.pkg
 pkgutil --expand WebDriver-346.01.02f02.pkg WebDriver
 cd WebDriver
 </pre></div>
@@ -1860,6 +1860,18 @@ to track GPU usage</p>
 <li>shutdown laptop</li>
 <li>power off GPU and PCI expansion board</li>
 <li>disconnect thunderbolt</li>
+</ul>
+<p>When not in use:</p>
+<ul>
+<li>switch from NVIDIA Web Driver to OS X Default Graphics Driver using NVIDIA Driver Manager (you can use the icon that appears at the top right of your menu.)</li>
+<li>reboot</li>
+<li>
+<p>cleanup nvram:</p>
+<p>nvram -d boot-args</p>
+</li>
+<li>
+<p>Shut Down...</p>
+</li>
 </ul></div>
     <footer>
 <p class="meta">
