@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom"><title>udibr</title><link href="http://udibr.github.io/" rel="alternate"></link><link href="/feeds/udibr.atom.xml" rel="self"></link><id>http://udibr.github.io/</id><updated>2015-07-17T18:11:00-04:00</updated><entry><title>Tips on working with Theano</title><link href="http://udibr.github.io/tips-on-working-with-theano.html" rel="alternate"></link><updated>2015-07-17T18:11:00-04:00</updated><author><name>udibr</name></author><id>tag:udibr.github.io,2015-07-17:tips-on-working-with-theano.html</id><summary type="html">&lt;p&gt;Debugging Theano code is notoriously hard.
 Perhaps the main reason is because the python code you just wrote is not executed.
-Instead it just builds a graph of what you want to be computed
-this graph is compiled into CPU or GPU code when you use something like
-&lt;code&gt;theano.function&lt;/code&gt; to create a "regular" python function from your graph
-and this code is executed only when you call this regular function,
-at which point all the intermediate steps in the computation are hidden
+Instead, your python expressions are used to build a graph of what you want to compute.
+The graph is compiled into CPU or GPU code when you use something like
+&lt;code&gt;theano.function&lt;/code&gt; to create a "regular" python function from your graph.
+Finally the compiled code is excuted only when you call the "regular" function,
+at which point, all the intermediate steps in the computation are hidden
 from view.
 As a result you can't just code and experiment with your code to better
 understand how things work.&lt;/p&gt;
@@ -27,7 +27,7 @@ Somewhere at the start of the code enter something like:&lt;/p&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;next, whenever you create a Theano variable, assign to it some value which
+&lt;p&gt;next, whenever you create a Theano variable, assign to it some value that
 will be used for debugging. For example:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;numpy&lt;/span&gt;
 &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;theano&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;tensor&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="kp"&gt;matrix&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;features&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
@@ -37,29 +37,29 @@ will be used for debugging. For example:&lt;/p&gt;
 
 &lt;p&gt;The value you just assigned for debugging can always be examined using
 &lt;code&gt;x.tag.test_value&lt;/code&gt; and what is nice is that any expression that uses this
-variable also has its own &lt;code&gt;test_value&lt;/code&gt; which is computed on the fly,
-as you would have expected from python code.&lt;/p&gt;
+variable also has its own &lt;code&gt;test_value&lt;/code&gt; that is computed on the fly,
+as you would have expected from an interactive python code.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;y = x*2
 print y.tag.test_value
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;The expression can be broken into as many lines of code as you want 
-As long as all the variables it is made off have their &lt;code&gt;test_value&lt;/code&gt; defined.
+as long as all the variables it is made off have their &lt;code&gt;test_value&lt;/code&gt; defined.
 If a variable has a predefined value to it, set by Theano, then there is
-no need to set something in &lt;code&gt;test_value&lt;/code&gt;&lt;/p&gt;
+no need to set something using &lt;code&gt;test_value&lt;/code&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;b = theano.tensor.ones((3,2))
 c = theano.shared(np.ones((3,2)))
 print (y*b + c).tag.test_value
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;In addition to exploring yourself the intermediate results of your computation
+&lt;p&gt;In addition to exploring the intermediate results of your computation
 you will also get an excpetion whenever a &lt;code&gt;test_value&lt;/code&gt; can not be
-computed, usually because of misunderstanding of how Theano works,
-immediately at the spot where the offending code was called.&lt;/p&gt;
-&lt;p&gt;I've found that it is important to use as realistic as possible test values
-to the input values you expect to see when the final "regular" compiled
+computed immediately at the spot where the offending code was called.
+This usually happens to me because of misunderstanding of how Theano works.&lt;/p&gt;
+&lt;p&gt;I've found that it is important to use as realistic as possible test values.
+Use the same input values you expect to see when the final "regular" compiled
 function is going to be used.&lt;/p&gt;
 &lt;p&gt;However, if you want to speed things up while debugging you should start 
 as small as possible. For example, use small number of hidden units.&lt;/p&gt;
@@ -72,7 +72,7 @@ as small as possible. For example, use small number of hidden units.&lt;/p&gt;
 at you,
 usually it is very cryptic but it can contain helpful hints.&lt;/p&gt;
 &lt;p&gt;You can even force some of the prints to appear even without an exception&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;theano.printing.debugprint(my_theano variable, print_type=True)
+&lt;div class="highlight"&gt;&lt;pre&gt;theano.printing.debugprint(my_theano_variable, print_type=True)
 &lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>using external GTX 980 with MacBook Pro</title><link href="http://udibr.github.io/using-external-gtx-980-with-macbook-pro.html" rel="alternate"></link><updated>2015-05-01T18:13:00-04:00</updated><author><name>udibr</name></author><id>tag:udibr.github.io,2015-05-01:using-external-gtx-980-with-macbook-pro.html</id><summary type="html">&lt;p&gt;I have a working setup made from MacBook Pro (Retina, Mid 2012) connected to an external GPU card – GTX 980. The card is placed in PCIe box that is connected to the laptop with a thunderbolt 2 cable which gives a throughput of 10Gb/s (latter MBP supports 16Gb/s but the PCIe box is in any case limited to the lower rate.) The GPU also requires an external 500W power supply.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="external GPU connected to MacBook Pro" src="https://pbs.twimg.com/media/CDjmbmYWAAEE_SV.jpg" /&gt;&lt;/p&gt;
 &lt;p&gt;Hardware:&lt;/p&gt;

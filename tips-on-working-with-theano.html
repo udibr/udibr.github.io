@@ -1764,11 +1764,11 @@ jQuery(document).ready(function($) {
 
   <div class="entry-content"><p>Debugging Theano code is notoriously hard.
 Perhaps the main reason is because the python code you just wrote is not executed.
-Instead it just builds a graph of what you want to be computed
-this graph is compiled into CPU or GPU code when you use something like
-<code>theano.function</code> to create a "regular" python function from your graph
-and this code is executed only when you call this regular function,
-at which point all the intermediate steps in the computation are hidden
+Instead, your python expressions are used to build a graph of what you want to compute.
+The graph is compiled into CPU or GPU code when you use something like
+<code>theano.function</code> to create a "regular" python function from your graph.
+Finally the compiled code is excuted only when you call the "regular" function,
+at which point, all the intermediate steps in the computation are hidden
 from view.
 As a result you can't just code and experiment with your code to better
 understand how things work.</p>
@@ -1790,7 +1790,7 @@ Somewhere at the start of the code enter something like:</p>
 </pre></div>
 
 
-<p>next, whenever you create a Theano variable, assign to it some value which
+<p>next, whenever you create a Theano variable, assign to it some value that
 will be used for debugging. For example:</p>
 <div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">theano</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="kp">matrix</span><span class="p">(</span><span class="s">&#39;features&#39;</span><span class="p">)</span>
@@ -1800,29 +1800,29 @@ will be used for debugging. For example:</p>
 
 <p>The value you just assigned for debugging can always be examined using
 <code>x.tag.test_value</code> and what is nice is that any expression that uses this
-variable also has its own <code>test_value</code> which is computed on the fly,
-as you would have expected from python code.</p>
+variable also has its own <code>test_value</code> that is computed on the fly,
+as you would have expected from an interactive python code.</p>
 <div class="highlight"><pre>y = x*2
 print y.tag.test_value
 </pre></div>
 
 
 <p>The expression can be broken into as many lines of code as you want 
-As long as all the variables it is made off have their <code>test_value</code> defined.
+as long as all the variables it is made off have their <code>test_value</code> defined.
 If a variable has a predefined value to it, set by Theano, then there is
-no need to set something in <code>test_value</code></p>
+no need to set something using <code>test_value</code></p>
 <div class="highlight"><pre>b = theano.tensor.ones((3,2))
 c = theano.shared(np.ones((3,2)))
 print (y*b + c).tag.test_value
 </pre></div>
 
 
-<p>In addition to exploring yourself the intermediate results of your computation
+<p>In addition to exploring the intermediate results of your computation
 you will also get an excpetion whenever a <code>test_value</code> can not be
-computed, usually because of misunderstanding of how Theano works,
-immediately at the spot where the offending code was called.</p>
-<p>I've found that it is important to use as realistic as possible test values
-to the input values you expect to see when the final "regular" compiled
+computed immediately at the spot where the offending code was called.
+This usually happens to me because of misunderstanding of how Theano works.</p>
+<p>I've found that it is important to use as realistic as possible test values.
+Use the same input values you expect to see when the final "regular" compiled
 function is going to be used.</p>
 <p>However, if you want to speed things up while debugging you should start 
 as small as possible. For example, use small number of hidden units.</p>
@@ -1835,7 +1835,7 @@ as small as possible. For example, use small number of hidden units.</p>
 at you,
 usually it is very cryptic but it can contain helpful hints.</p>
 <p>You can even force some of the prints to appear even without an exception</p>
-<div class="highlight"><pre>theano.printing.debugprint(my_theano variable, print_type=True)
+<div class="highlight"><pre>theano.printing.debugprint(my_theano_variable, print_type=True)
 </pre></div></div>
     <footer>
 <p class="meta">
