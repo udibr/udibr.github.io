@@ -4,7 +4,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Command line for cleaning the cells of an ipython notebook</title>
+  <title>Tips on working with Theano</title>
   <meta name="author" content="udibr">
 
   <link href="/atom.xml" type="application/atom+xml" rel="alternate"
@@ -1746,10 +1746,10 @@ jQuery(document).ready(function($) {
 </form>
 
 <ul class="main-navigation">
-    <li class="active">
+    <li >
     <a href="http://udibr.github.io/category/code.html">Code</a>
     </li>
-    <li >
+    <li class="active">
     <a href="http://udibr.github.io/category/ml.html">Ml</a>
     </li>
 </ul></nav>
@@ -1758,49 +1758,92 @@ jQuery(document).ready(function($) {
 <div>
   <article class="hentry" role="article">
 <header>
-      <h1 class="entry-title">Command line for cleaning the cells of an ipython notebook</h1>
-      <p class="meta"><time datetime="2014-12-12T13:57:00-05:00" pubdate>Fri 12 December 2014</time></p>
+      <h1 class="entry-title">Tips on working with Theano</h1>
+      <p class="meta"><time datetime="2015-07-17T18:11:00-04:00" pubdate>Fri 17 July 2015</time></p>
 </header>
 
-  <div class="entry-content"><p>Once in a while I have an ipython notebook that has so much stuff written into its output cells that it takes forever to open it in the browser. In some cases the browser crash, blocking me from reaching the menu option to clear all the cells in the notebook.</p>
-<p>I therefore wrote <a href="https://gist.github.com/udibr/1d4c71b79dfd360b087d">this code</a> to clear the output of all the cells (and the prompt numbers.) With it I can run the code as a command line before attempting to open the notebook from the ipython notebook server.</p>
-<p>Code example:
-<figure class='code'>
-<figcaption><span>clean_notebook.py</span> <a href='/code/clean_notebook.py'>download</a></figcaption></p>
-<div class="highlight"><pre><span class="kn">import</span> <span class="nn">sys</span>
-
-<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
-	<span class="k">print</span> <span class="s">&quot;Usage: </span><span class="si">%s</span><span class="s"> &lt;file-name&gt;&quot;</span><span class="o">%</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-	<span class="nb">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">fname</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-
-<span class="kn">import</span> <span class="nn">json</span>
-
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span><span class="s">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
-    <span class="n">d</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span>
-
-<span class="k">def</span> <span class="nf">filter</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">d</span><span class="p">,</span><span class="nb">dict</span><span class="p">):</span>
-        <span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">((</span><span class="n">k</span><span class="p">,[]</span> <span class="k">if</span> <span class="n">k</span> <span class="o">==</span> <span class="s">&#39;outputs&#39;</span> <span class="k">else</span> <span class="nb">filter</span><span class="p">(</span><span class="n">v</span><span class="p">))</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">iteritems</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="o">!=</span> <span class="s">&#39;prompt_number&#39;</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">d</span><span class="p">,</span><span class="nb">list</span><span class="p">):</span>
-        <span class="n">d</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">filter</span><span class="p">,</span><span class="n">d</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">d</span>
-
-<span class="n">d</span> <span class="o">=</span> <span class="nb">filter</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
-
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
-    <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">separators</span><span class="o">=</span><span class="p">(</span><span class="s">&#39;,&#39;</span><span class="p">,</span> <span class="s">&#39;: &#39;</span><span class="p">))</span>
+  <div class="entry-content"><p>Debugging Theano code is notoriously hard.
+Perhaps the main reason is because the python code you just wrote is not executed.
+Instead it just builds a graph of what you want to be computed
+this graph is compiled into CPU or GPU code when you use something like
+<code>theano.function</code> to create a "regular" python function from your graph
+and this code is executed only when you call this regular function,
+at which point all the intermediate steps in the computation are hidden
+from view.
+As a result you can't just code and experiment with your code to better
+understand how things work.</p>
+<p>Luckily there is a workaround that allows you to do just that.
+Somewhere at the start of the code enter something like:</p>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">theano</span>
+<span class="n">theano</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">optimizer</span><span class="o">=</span><span class="s">&#39;fast_compile&#39;</span>
+<span class="n">theano</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">exception_verbosity</span><span class="o">=</span><span class="s">&#39;high&#39;</span>
+<span class="n">theano</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">compute_test_value</span> <span class="o">=</span> <span class="s">&#39;warn&#39;</span>
 </pre></div>
 
 
-</figure></div>
+<p>if you want the above code to run only while debugging you can use the following
+<code>if</code> statement:</p>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">debug</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">gettrace</span><span class="p">()</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span>
+<span class="k">if</span> <span class="n">debug</span><span class="p">:</span>
+    <span class="o">...</span>
+</pre></div>
+
+
+<p>next, whenever you create a Theano variable, assign to it some value which
+will be used for debugging. For example:</p>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">theano</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="kp">matrix</span><span class="p">(</span><span class="s">&#39;features&#39;</span><span class="p">)</span>
+<span class="n">x</span><span class="o">.</span><span class="n">tag</span><span class="o">.</span><span class="n">test_value</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+
+
+<p>The value you just assigned for debugging can always be examined using
+<code>x.tag.test_value</code> and what is nice is that any expression that uses this
+variable also has its own <code>test_value</code> which is computed on the fly,
+as you would have expected from python code.</p>
+<div class="highlight"><pre>y = x*2
+print y.tag.test_value
+</pre></div>
+
+
+<p>The expression can be broken into as many lines of code as you want 
+As long as all the variables it is made off have their <code>test_value</code> defined.
+If a variable has a predefined value to it, set by Theano, then there is
+no need to set something in <code>test_value</code></p>
+<div class="highlight"><pre>b = theano.tensor.ones((3,2))
+c = theano.shared(np.ones((3,2)))
+print (y*b + c).tag.test_value
+</pre></div>
+
+
+<p>In addition to exploring yourself the intermediate results of your computation
+you will also get an excpetion whenever a <code>test_value</code> can not be
+computed, usually because of misunderstanding of how Theano works,
+immediately at the spot where the offending code was called.</p>
+<p>I've found that it is important to use as realistic as possible test values
+to the input values you expect to see when the final "regular" compiled
+function is going to be used.</p>
+<p>However, if you want to speed things up while debugging you should start 
+as small as possible. For example, use small number of hidden units.</p>
+<p>Another trick that may help is using CPU at first:</p>
+<div class="highlight"><pre>export THEANO_FLAGS=device=cpu
+</pre></div>
+
+
+<p>Finally, if everything else fails, read the entire error message Theano throws
+at you,
+usually it is very cryptic but it can contain helpful hints.</p>
+<p>You can even force some of the prints to appear even without an exception</p>
+<div class="highlight"><pre>theano.printing.debugprint(my_theano variable, print_type=True)
+</pre></div></div>
     <footer>
 <p class="meta">
   <span class="byline author vcard">
     Posted by <span class="fn">udibr</span>
   </span>
-<time datetime="2014-12-12T13:57:00-05:00" pubdate>Fri 12 December 2014</time></p><div class="sharing">
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://udibr.github.io/command-line-for-cleaning-the-cells-of-an-ipython-notebook.html" data-via="udibr" data-counturl="http://udibr.github.io/command-line-for-cleaning-the-cells-of-an-ipython-notebook.html" >Tweet</a>
+<time datetime="2015-07-17T18:11:00-04:00" pubdate>Fri 17 July 2015</time></p><div class="sharing">
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://udibr.github.io/tips-on-working-with-theano.html" data-via="udibr" data-counturl="http://udibr.github.io/tips-on-working-with-theano.html" >Tweet</a>
 </div>    </footer>
   </article>
 
@@ -1857,9 +1900,9 @@ jQuery(document).ready(function($) {
 </p></footer>
 	<script type="text/javascript">
 	  var disqus_shortname = 'udibr';
-          var disqus_identifier = '/command-line-for-cleaning-the-cells-of-an-ipython-notebook.html';
-          var disqus_url = 'http://udibr.github.io/command-line-for-cleaning-the-cells-of-an-ipython-notebook.html';
-          var disqus_title = 'Command line for cleaning the cells of an ipython notebook';
+          var disqus_identifier = '/tips-on-working-with-theano.html';
+          var disqus_url = 'http://udibr.github.io/tips-on-working-with-theano.html';
+          var disqus_title = 'Tips on working with Theano';
 	  (function() {
 	    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
 	    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
