@@ -1821,7 +1821,7 @@ print (y*b + c).tag.test_value
 you will also get an excpetion whenever a <code>test_value</code> can not be
 computed immediately at the spot where the offending code was called.
 This usually happens to me because of misunderstanding of how Theano works.</p>
-<p>I've found that it is important to use as realistic as possible test values.
+<p>I've found that it is important to use test values that are as realistic as possible.
 Use the same input values you expect to see when the final "regular" compiled
 function is going to be used.</p>
 <p>However, if you want to speed things up while debugging you should start 
