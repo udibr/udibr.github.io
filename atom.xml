@@ -190,7 +190,7 @@ to track GPU usage&lt;/p&gt;
 
 
 &lt;ul&gt;
-&lt;li&gt;Shot down&lt;/li&gt;
+&lt;li&gt;Shut down the mac&lt;/li&gt;
 &lt;li&gt;connect the eGPU and power it up&lt;/li&gt;
 &lt;li&gt;power the mac back&lt;/li&gt;
 &lt;/ul&gt;</summary></entry><entry><title>Command line for cleaning the cells of an ipython notebook</title><link href="http://udibr.github.io/command-line-for-cleaning-the-cells-of-an-ipython-notebook.html" rel="alternate"></link><updated>2014-12-12T13:57:00-05:00</updated><author><name>udibr</name></author><id>tag:udibr.github.io,2014-12-12:command-line-for-cleaning-the-cells-of-an-ipython-notebook.html</id><summary type="html">&lt;p&gt;Once in a while I have an ipython notebook that has so much stuff written into its output cells that it takes forever to open it in the browser. In some cases the browser crash, blocking me from reaching the menu option to clear all the cells in the notebook.&lt;/p&gt;
