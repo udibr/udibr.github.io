@@ -183,6 +183,16 @@ to track GPU usage&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;Disconnect the external GPU&lt;/li&gt;
 &lt;li&gt;Power Mac back on&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;When you want to return to use the eGPU do:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;nvram boot-args=&amp;quot;kext-dev-mode=1 nvda_drv=1&amp;quot;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;Shot down&lt;/li&gt;
+&lt;li&gt;connect the eGPU and power it up&lt;/li&gt;
+&lt;li&gt;power the mac back&lt;/li&gt;
 &lt;/ul&gt;</summary></entry><entry><title>Command line for cleaning the cells of an ipython notebook</title><link href="http://udibr.github.io/command-line-for-cleaning-the-cells-of-an-ipython-notebook.html" rel="alternate"></link><updated>2014-12-12T13:57:00-05:00</updated><author><name>udibr</name></author><id>tag:udibr.github.io,2014-12-12:command-line-for-cleaning-the-cells-of-an-ipython-notebook.html</id><summary type="html">&lt;p&gt;Once in a while I have an ipython notebook that has so much stuff written into its output cells that it takes forever to open it in the browser. In some cases the browser crash, blocking me from reaching the menu option to clear all the cells in the notebook.&lt;/p&gt;
 &lt;p&gt;I therefore wrote &lt;a href="https://gist.github.com/udibr/1d4c71b79dfd360b087d"&gt;this code&lt;/a&gt; to clear the output of all the cells (and the prompt numbers.) With it I can run the code as a command line before attempting to open the notebook from the ipython notebook server.&lt;/p&gt;
 &lt;p&gt;Code example:
