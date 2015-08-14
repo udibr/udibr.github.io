@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>udibr</title><link>http://udibr.github.io/</link><description></description><atom:link href="/feeds/udibr.rss.xml" rel="self"></atom:link><lastBuildDate>Fri, 14 Aug 2015 14:04:00 -0400</lastBuildDate><item><title>using external GTX 980 with MacBook Pro</title><link>http://udibr.github.io/using-external-gtx-980-with-macbook-pro.html</link><description>&lt;h1&gt;Intro&lt;/h1&gt;
 &lt;p&gt;I have a working setup made from MacBook Pro (Retina, Mid 2012) connected to an external GPU card – GTX 980. The card is placed in PCIe box that is connected to the laptop with a thunderbolt 2 cable which gives a throughput of 10Gb/s (latter MBP supports 16Gb/s but the PCIe box is in any case limited to the lower rate.) The GPU also requires an external 500W power supply.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="external GPU connected to MacBook Pro" src="https://pbs.twimg.com/media/CDjmbmYWAAEE_SV.jpg" /&gt;&lt;/p&gt;
-&lt;p&gt;Hardware:&lt;/p&gt;
+&lt;h1&gt;Hardware&lt;/h1&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="http://www.amazon.com/gp/product/B00LTAUTHE"&gt;Akitio Thunder2 PCIe Box&lt;/a&gt; it comes with a thunderbolt cable. The GPU card is too big for the box so I had to give up on the box cover and cut out and fold the front of the box. Make sure you disassemble all the electroinc parts out of the box before hammering it to its new shape.&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www.amazon.com/gp/product/B00NT9UT3M"&gt;EVGA GTX 980 SC ACX 2.0 4GB GDDR5 Graphics Card&lt;/a&gt; you can find reduced price for this card on Amazon or eBay.&lt;/li&gt;
