@@ -1,5 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>udibr</title><link href="http://udibr.github.io/" rel="alternate"></link><link href="/feeds/udibr.atom.xml" rel="self"></link><id>http://udibr.github.io/</id><updated>2015-07-17T18:11:00-04:00</updated><entry><title>Tips on working with Theano</title><link href="http://udibr.github.io/tips-on-working-with-theano.html" rel="alternate"></link><updated>2015-07-17T18:11:00-04:00</updated><author><name>udibr</name></author><id>tag:udibr.github.io,2015-07-17:tips-on-working-with-theano.html</id><summary type="html">&lt;p&gt;Debugging Theano code is notoriously hard.
+<feed xmlns="http://www.w3.org/2005/Atom"><title>udibr</title><link href="http://udibr.github.io/" rel="alternate"></link><link href="/feeds/udibr.atom.xml" rel="self"></link><id>http://udibr.github.io/</id><updated>2015-08-14T14:04:00-04:00</updated><entry><title>using external GTX 980 with MacBook Pro</title><link href="http://udibr.github.io/using-external-gtx-980-with-macbook-pro.html" rel="alternate"></link><updated>2015-08-14T14:04:00-04:00</updated><author><name>udibr</name></author><id>tag:udibr.github.io,2015-08-14:using-external-gtx-980-with-macbook-pro.html</id><summary type="html">&lt;h1&gt;Intro&lt;/h1&gt;
+&lt;p&gt;I have a working setup made from MacBook Pro (Retina, Mid 2012) connected to an external GPU card – GTX 980. The card is placed in PCIe box that is connected to the laptop with a thunderbolt 2 cable which gives a throughput of 10Gb/s (latter MBP supports 16Gb/s but the PCIe box is in any case limited to the lower rate.) The GPU also requires an external 500W power supply.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="external GPU connected to MacBook Pro" src="https://pbs.twimg.com/media/CDjmbmYWAAEE_SV.jpg" /&gt;&lt;/p&gt;
+&lt;p&gt;Hardware:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://www.amazon.com/gp/product/B00LTAUTHE"&gt;Akitio Thunder2 PCIe Box&lt;/a&gt; it comes with a thunderbolt cable. The GPU card is too big for the box so I had to give up on the box cover and cut out and fold the front of the box. Make sure you disassemble all the electroinc parts out of the box before hammering it to its new shape.&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.amazon.com/gp/product/B00NT9UT3M"&gt;EVGA GTX 980 SC ACX 2.0 4GB GDDR5 Graphics Card&lt;/a&gt; you can find reduced price for this card on Amazon or eBay.&lt;/li&gt;
+&lt;li&gt;I used Corsair RM750 power supply (using an weaker power supply made a lot of noise from the GPU card.)
+The GPU card came with electric connectors for the power supply in case you don’t have the right ones. To keep the power supply turned on at all time you have to jumper the green line to the black line.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1&gt;Driver&lt;/h1&gt;
+&lt;p&gt;Get the latest Nvidia WebDriver version. They are listed &lt;a href="https://gfe.nvidia.com/mac-update"&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;wget http://us.download.nvidia.com/Mac/Quadro_Certified/346.02.03f01/WebDriver-346.02.03f01.pkg
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Modify&lt;/h2&gt;
+&lt;p&gt;Starting from &lt;code&gt;WebDriver-346.02.02f03.pkg&lt;/code&gt; you don't need to modify the driver.
+For older driver do the following:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;pkgutil --expand WebDriver-346.01.02f02.pkg WebDriver
+cd WebDriver
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;edit the &lt;code&gt;Distribution&lt;/code&gt; file,  replace the line &lt;code&gt;var found_hardware = 0;&lt;/code&gt; by &lt;code&gt;var found_hardware = 1;&lt;/code&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;cd ../
+pkgutil --flatten WebDriver WebDriver-346.01.02f02_mod.pkg
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Install&lt;/h2&gt;
+&lt;p&gt;Install the &lt;code&gt;pkg&lt;/code&gt;.&lt;/p&gt;
+&lt;h2&gt;Configure&lt;/h2&gt;
+&lt;p&gt;Edit the following files&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;/System/Library/Extensions/NVDAStartup.kext/Contents/Info.plist
+/System/Library/Extensions/IONDRVSupport.kext/Info.plist
+/System/Library/Extensions/AppleHDA.kext/Contents/PlugIns/AppleHDAController.kext/Contents/Info.plist
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;In these files look for the sections that begin with &lt;code&gt;&amp;lt;key&amp;gt;CFBundleIdentifier&amp;lt;/key&amp;gt;&lt;/code&gt; and add, just before the &lt;code&gt;&amp;lt;/dict&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nt"&gt;&amp;lt;key&amp;gt;&lt;/span&gt;IOPCITunnelCompatible&lt;span class="nt"&gt;&amp;lt;/key&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;true/&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;then 
+instead of running &lt;code&gt;Kext Utility&lt;/code&gt;
+or
+&lt;code&gt;sudo kextcache -system-caches&lt;/code&gt; do the following:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;sudo touch /System/Library/Extensions/
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;NVRAM&lt;/h2&gt;
+&lt;p&gt;We have an unsigned driver and/or modified config files so we need to disable signature checking.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;sudo nvram boot-args=&amp;quot;kext-dev-mode=1&amp;quot;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;but be careful: you may already have set other boot-args. To check, use the command&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;nvram boot-args
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;If that prints any values (e.g. "iog=0x0"), add them to the above command using a comma, like this: &lt;code&gt;sudo nvram boot-args="kext-dev-mode=1 iog=0x0"&lt;/code&gt; and latter to disable the &lt;code&gt;kext-dev-mode&lt;/code&gt;, do not use the &lt;code&gt;-d&lt;/code&gt; command but rather omit that part when setting the old boot-args&lt;/p&gt;
+&lt;p&gt;In my case I ended up with:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;nvram boot-args
+boot-args   kext-dev-mode=1 nvda_drv=1
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;finally reboot the machine and now &lt;/p&gt;
+&lt;h1&gt;CUDA&lt;/h1&gt;
+&lt;p&gt;Install latest CUDA or update an existing CUDA driver from system preferences (I had problems with an older version.) My version is&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;CUDA Driver Version: 7.0.36
+GPU Driver Version: 10.3.7 (346.01.02f02)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;as always you will need to set some environment variables to the location of the CUDA install:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="x"&gt;export PATH=/Developer/NVIDIA/CUDA-7.0/bin:&lt;/span&gt;&lt;span class="p"&gt;$&lt;/span&gt;&lt;span class="nv"&gt;PATH&lt;/span&gt;&lt;span class="x"&gt;&lt;/span&gt;
+&lt;span class="x"&gt;export DYLD_LIBRARY_PATH=/Developer/NVIDIA/CUDA-7.0/lib:&lt;/span&gt;&lt;span class="p"&gt;$&lt;/span&gt;&lt;span class="nv"&gt;DYLD_LIBRARY_PATH&lt;/span&gt;&lt;span class="x"&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h1&gt;Utils&lt;/h1&gt;
+&lt;p&gt;I also installed
+ &lt;a href="http://bjango.com/mac/istatmenus/"&gt;iStat Menu&lt;/a&gt;
+to track GPU usage&lt;/p&gt;
+&lt;h1&gt;Usage&lt;/h1&gt;
+&lt;p&gt;Now its time to connect the PCIe box to the laptop. The following ritual works for me:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Shutdown laptop (reset is not enough),&lt;/li&gt;
+&lt;li&gt;connect thunderbolt,&lt;/li&gt;
+&lt;li&gt;power GPU and PCI box&lt;/li&gt;
+&lt;li&gt;wait few seconds&lt;/li&gt;
+&lt;li&gt;Extra vodoo step: power off and after about two seconds power on again&lt;/li&gt;
+&lt;li&gt;turn turn on laptop&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;You can validate that your laptop is aware of the new GPU in one of the following ways:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;In the CPU menu of iStat Menu&lt;/li&gt;
+&lt;li&gt;In About This Mac-&amp;gt;System Report...-&amp;gt;Hardware-&amp;gt;Graphics/Displays&lt;/li&gt;
+&lt;li&gt;running CUDA's deviceQuery (which you need to build yourself first)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I've noticed that if you do a reboot you have to wait few seconds until the GPU is recognized.&lt;/p&gt;
+&lt;p&gt;To disconnect:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;shutdown laptop&lt;/li&gt;
+&lt;li&gt;power off GPU and PCI expansion board&lt;/li&gt;
+&lt;li&gt;disconnect thunderbolt&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;When not in use:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;cleanup nvram:&lt;/p&gt;
+&lt;p&gt;nvram -d boot-args&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Shut down the Mac&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;Disconnect the external GPU&lt;/li&gt;
+&lt;li&gt;Power Mac back on&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;When you want to return to use the eGPU do:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;nvram boot-args=&amp;quot;kext-dev-mode=1 nvda_drv=1&amp;quot;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;Shut down the mac&lt;/li&gt;
+&lt;li&gt;connect the eGPU and power it up&lt;/li&gt;
+&lt;li&gt;power the mac back&lt;/li&gt;
+&lt;/ul&gt;</summary></entry><entry><title>Tips on working with Theano</title><link href="http://udibr.github.io/tips-on-working-with-theano.html" rel="alternate"></link><updated>2015-07-17T18:11:00-04:00</updated><author><name>udibr</name></author><id>tag:udibr.github.io,2015-07-17:tips-on-working-with-theano.html</id><summary type="html">&lt;p&gt;Debugging Theano code is notoriously hard.
 Perhaps the main reason is because the python code you just wrote is not executed.
 Instead, your python expressions are used to build a graph of what you want to compute.
 The graph is compiled into CPU or GPU code when you use something like
@@ -73,127 +207,7 @@ at you,
 usually it is very cryptic but it can contain helpful hints.&lt;/p&gt;
 &lt;p&gt;You can even force some of the prints to appear even without an exception&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;theano.printing.debugprint(my_theano_variable, print_type=True)
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>using external GTX 980 with MacBook Pro</title><link href="http://udibr.github.io/using-external-gtx-980-with-macbook-pro.html" rel="alternate"></link><updated>2015-05-01T18:13:00-04:00</updated><author><name>udibr</name></author><id>tag:udibr.github.io,2015-05-01:using-external-gtx-980-with-macbook-pro.html</id><summary type="html">&lt;p&gt;I have a working setup made from MacBook Pro (Retina, Mid 2012) connected to an external GPU card – GTX 980. The card is placed in PCIe box that is connected to the laptop with a thunderbolt 2 cable which gives a throughput of 10Gb/s (latter MBP supports 16Gb/s but the PCIe box is in any case limited to the lower rate.) The GPU also requires an external 500W power supply.&lt;/p&gt;
-&lt;p&gt;&lt;img alt="external GPU connected to MacBook Pro" src="https://pbs.twimg.com/media/CDjmbmYWAAEE_SV.jpg" /&gt;&lt;/p&gt;
-&lt;p&gt;Hardware:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href="http://www.amazon.com/gp/product/B00LTAUTHE"&gt;Akitio Thunder2 PCIe Box&lt;/a&gt; it comes with a thunderbolt cable. The GPU card is too big for the box so I had to give up on the box cover and cut out and fold the front of the box. Make sure you disassemble all the electroinc parts out of the box before hammering it to its new shape.&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://www.amazon.com/gp/product/B00NT9UT3M"&gt;EVGA GTX 980 SC ACX 2.0 4GB GDDR5 Graphics Card&lt;/a&gt; you can find reduced price for this card on Amazon or eBay.&lt;/li&gt;
-&lt;li&gt;I used &lt;s&gt;an old power supply I have, DYNEX DX-520WPS&lt;/s&gt; Corsair RM750 power supply.
-The GPU card came with electric connectors for the power supply in case you don’t have the right ones. To keep the power supply turned on at all time you have to jumper the green line to the black line.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;I then followed &lt;a href="http://www.journaldulapin.com/2014/12/04/a-nvidia-maxwell-card-with-thunderbolt-on-a-mac-running-yosemite/"&gt;this site&lt;/a&gt; with some  differences:&lt;/p&gt;
-&lt;p&gt;Look for the latest Nvidia WebDriver version. I found you can get it at https://gfe.nvidia.com/mac-update for example&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;wget http://us.download.nvidia.com/Mac/Quadro_Certified/346.01.03f01/WebDriver-346.01.03f01.pkg
-pkgutil --expand WebDriver-346.01.02f02.pkg WebDriver
-cd WebDriver
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;edit the &lt;code&gt;Distribution&lt;/code&gt; file,  replace the line &lt;code&gt;var found_hardware = 0;&lt;/code&gt; by &lt;code&gt;var found_hardware = 1;&lt;/code&gt;&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;cd ../
-pkgutil --flatten WebDriver WebDriver-346.01.02f02_mod.pkg
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;Install the modified &lt;code&gt;pkg&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;We have an unsigned driver so we need to disable signature checking.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;sudo nvram boot-args=&amp;quot;kext-dev-mode=1&amp;quot;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;but be careful: you may already have set other boot-args. To check, use the command&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;nvram boot-args
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;If that prints any values (e.g. "iog=0x0"), add them to the above command using a comma, like this: &lt;code&gt;sudo nvram boot-args="kext-dev-mode=1 iog=0x0"&lt;/code&gt; and latter to disable the &lt;code&gt;kext-dev-mode&lt;/code&gt;, do not use the &lt;code&gt;-d&lt;/code&gt; command but rather omit that part when setting the old boot-args&lt;/p&gt;
-&lt;p&gt;In my case I ended up with:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;nvram boot-args
-boot-args   kext-dev-mode=1 nvda_drv=1
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;Reboot the machine and now edit the following files&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;/System/Library/Extensions/NVDAStartup.kext/Contents/Info.plist
-/System/Library/Extensions/IONDRVSupport.kext/Info.plist
-/System/Library/Extensions/AppleHDA.kext/Contents/PlugIns/AppleHDAController.kext/Contents/Info.plist
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;In these files look for the sections that begin with &lt;code&gt;&amp;lt;key&amp;gt;CFBundleIdentifier&amp;lt;/key&amp;gt;&lt;/code&gt; and add, just before the &lt;code&gt;&amp;lt;/dict&amp;gt;&lt;/code&gt;&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nt"&gt;&amp;lt;key&amp;gt;&lt;/span&gt;IOPCITunnelCompatible&lt;span class="nt"&gt;&amp;lt;/key&amp;gt;&lt;/span&gt;
-&lt;span class="nt"&gt;&amp;lt;true/&amp;gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;then 
-instead of running &lt;code&gt;Kext Utility&lt;/code&gt;
-or
-&lt;code&gt;sudo kextcache -system-caches&lt;/code&gt; do the following:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;sudo touch /System/Library/Extensions/
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;Install latest CUDA or update an existing CUDA driver from system preferences (I had problems with an older version.) My version is&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;CUDA Driver Version: 7.0.36
-GPU Driver Version: 10.3.7 (346.01.02f02)
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;as always you will need to set some environment variables to the location of the CUDA install:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="x"&gt;export PATH=/Developer/NVIDIA/CUDA-7.0/bin:&lt;/span&gt;&lt;span class="p"&gt;$&lt;/span&gt;&lt;span class="nv"&gt;PATH&lt;/span&gt;&lt;span class="x"&gt;&lt;/span&gt;
-&lt;span class="x"&gt;export DYLD_LIBRARY_PATH=/Developer/NVIDIA/CUDA-7.0/lib:&lt;/span&gt;&lt;span class="p"&gt;$&lt;/span&gt;&lt;span class="nv"&gt;DYLD_LIBRARY_PATH&lt;/span&gt;&lt;span class="x"&gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;I also installed
- &lt;a href="http://bjango.com/mac/istatmenus/"&gt;iStat Menu&lt;/a&gt;
-to track GPU usage&lt;/p&gt;
-&lt;p&gt;Now its time to connect the PCIe box to the laptop. The following ritual works for me:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Shutdown laptop (reset is not enough),&lt;/li&gt;
-&lt;li&gt;connect thunderbolt,&lt;/li&gt;
-&lt;li&gt;power GPU and PCI box&lt;/li&gt;
-&lt;li&gt;wait few seconds&lt;/li&gt;
-&lt;li&gt;Extra vodoo step: power off and after about two seconds power on again&lt;/li&gt;
-&lt;li&gt;turn turn on laptop&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;You can validate that your laptop is aware of the new GPU in one of the following ways:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;In the CPU menu of iStat Menu&lt;/li&gt;
-&lt;li&gt;In About This Mac-&amp;gt;System Report...-&amp;gt;Hardware-&amp;gt;Graphics/Displays&lt;/li&gt;
-&lt;li&gt;running CUDA's deviceQuery (which you need to build yourself first)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;I've noticed that if you do a reboot you have to wait few seconds until the GPU is recognized.&lt;/p&gt;
-&lt;p&gt;To disconnect:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;shutdown laptop&lt;/li&gt;
-&lt;li&gt;power off GPU and PCI expansion board&lt;/li&gt;
-&lt;li&gt;disconnect thunderbolt&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;When not in use:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;cleanup nvram:&lt;/p&gt;
-&lt;p&gt;nvram -d boot-args&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Shut down the Mac&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;Disconnect the external GPU&lt;/li&gt;
-&lt;li&gt;Power Mac back on&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;When you want to return to use the eGPU do:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;nvram boot-args=&amp;quot;kext-dev-mode=1 nvda_drv=1&amp;quot;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;ul&gt;
-&lt;li&gt;Shut down the mac&lt;/li&gt;
-&lt;li&gt;connect the eGPU and power it up&lt;/li&gt;
-&lt;li&gt;power the mac back&lt;/li&gt;
-&lt;/ul&gt;</summary></entry><entry><title>Command line for cleaning the cells of an ipython notebook</title><link href="http://udibr.github.io/command-line-for-cleaning-the-cells-of-an-ipython-notebook.html" rel="alternate"></link><updated>2014-12-12T13:57:00-05:00</updated><author><name>udibr</name></author><id>tag:udibr.github.io,2014-12-12:command-line-for-cleaning-the-cells-of-an-ipython-notebook.html</id><summary type="html">&lt;p&gt;Once in a while I have an ipython notebook that has so much stuff written into its output cells that it takes forever to open it in the browser. In some cases the browser crash, blocking me from reaching the menu option to clear all the cells in the notebook.&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>Command line for cleaning the cells of an ipython notebook</title><link href="http://udibr.github.io/command-line-for-cleaning-the-cells-of-an-ipython-notebook.html" rel="alternate"></link><updated>2014-12-12T13:57:00-05:00</updated><author><name>udibr</name></author><id>tag:udibr.github.io,2014-12-12:command-line-for-cleaning-the-cells-of-an-ipython-notebook.html</id><summary type="html">&lt;p&gt;Once in a while I have an ipython notebook that has so much stuff written into its output cells that it takes forever to open it in the browser. In some cases the browser crash, blocking me from reaching the menu option to clear all the cells in the notebook.&lt;/p&gt;
 &lt;p&gt;I therefore wrote &lt;a href="https://gist.github.com/udibr/1d4c71b79dfd360b087d"&gt;this code&lt;/a&gt; to clear the output of all the cells (and the prompt numbers.) With it I can run the code as a command line before attempting to open the notebook from the ipython notebook server.&lt;/p&gt;
 &lt;p&gt;Code example:
 &lt;figure class='code'&gt;
