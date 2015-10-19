@@ -1839,7 +1839,10 @@ usually it is very cryptic but it can contain helpful hints.</p>
 </pre></div>
 
 
-<p>I found that in many cases the GPU seats idle because the CPU is too slow feeding it with data. You can thread your CPU code etc but an easier solution will be to use the old code as is and run several experiments in parallel. For example, try different hyper parameter. Just open another shell and run a different experiment on the same GPU, Theano is fine with that.</p></div>
+<p>I found that in many cases the GPU seats idle because the CPU is too slow feeding it with data. You can thread your CPU code etc but an easier solution will be to use the old code as is and run several experiments in parallel. For example, try different hyper parameter. Just open another shell and run a different experiment on the same GPU, Theano is fine with that.</p>
+<p>If you put “profile=True” into THEANO_FLAGS, it will analyse your program, showing a breakdown of how much is spent on each operation. Very handy for finding bottlenecks.</p>
+<p>Theano tutorials
+<a href="https://github.com/mila-udem/summerschool2015">Summer School 2015</a></p></div>
     <footer>
 <p class="meta">
   <span class="byline author vcard">
@@ -1860,6 +1863,9 @@ usually it is very cryptic but it can contain helpful hints.</p>
     <h1>Recent Posts</h1>
     <ul id="recent_posts">
       <li class="post">
+          <a href="http://udibr.github.io/using-external-gtx-980-with-macbook-pro-and-el-capitan.html">using external GTX 980 with MacBook Pro and El Capitan</a>
+      </li>
+      <li class="post">
           <a href="http://udibr.github.io/using-external-gtx-980-with-macbook-pro.html">using external GTX 980 with MacBook Pro</a>
       </li>
       <li class="post">
@@ -1870,9 +1876,6 @@ usually it is very cryptic but it can contain helpful hints.</p>
       </li>
       <li class="post">
           <a href="http://udibr.github.io/getting-deeper-into-deep-learning.html">Getting deeper into deep learning</a>
-      </li>
-      <li class="post">
-          <a href="http://udibr.github.io/vw-contextual-bandit.html">VW contextual bandit</a>
       </li>
     </ul>
   </section>

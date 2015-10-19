@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>udibr</title><link>http://udibr.github.io/</link><description></description><atom:link href="/feeds/udibr.rss.xml" rel="self"></atom:link><lastBuildDate>Fri, 14 Aug 2015 14:04:00 -0400</lastBuildDate><item><title>using external GTX 980 with MacBook Pro</title><link>http://udibr.github.io/using-external-gtx-980-with-macbook-pro.html</link><description>&lt;h1&gt;Intro&lt;/h1&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>udibr</title><link>http://udibr.github.io/</link><description></description><atom:link href="/feeds/udibr.rss.xml" rel="self"></atom:link><lastBuildDate>Mon, 19 Oct 2015 12:33:00 -0400</lastBuildDate><item><title>using external GTX 980 with MacBook Pro and El Capitan</title><link>http://udibr.github.io/using-external-gtx-980-with-macbook-pro-and-el-capitan.html</link><description>&lt;p&gt;My external GPU was running just fine with yosemite but installong El Capitan broke things.
+So here is what to do:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://forums.developer.apple.com/thread/3981"&gt;Disable SIP&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Use version 0.9.6 of &lt;a href="https://github.com/goalque/automate-eGPU"&gt;automate-eGPU&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;    git clone https://github.com/goalque/automate-eGPU.git
+    &lt;span class="nb"&gt;cd &lt;/span&gt;automate-eGPU
+    git checkout ada4d92ce0d04e1c0
+    chmod +x automate-eGPU.sh
+    sudo ./automate-eGPU.sh
+&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">udibr</dc:creator><pubDate>Mon, 19 Oct 2015 12:33:00 -0400</pubDate><guid>tag:udibr.github.io,2015-10-19:using-external-gtx-980-with-macbook-pro-and-el-capitan.html</guid></item><item><title>using external GTX 980 with MacBook Pro</title><link>http://udibr.github.io/using-external-gtx-980-with-macbook-pro.html</link><description>&lt;h1&gt;Intro&lt;/h1&gt;
 &lt;p&gt;I have a working setup made from MacBook Pro (Retina, Mid 2012) connected to an external GPU card – GTX 980. The card is placed in PCIe box that is connected to the laptop with a thunderbolt 2 cable which gives a throughput of 10Gb/s (latter MBP supports 16Gb/s but the PCIe box is in any case limited to the lower rate.) The GPU also requires an external 500W power supply.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="external GPU connected to MacBook Pro" src="https://pbs.twimg.com/media/CDjmbmYWAAEE_SV.jpg" /&gt;&lt;/p&gt;
 &lt;h1&gt;Hardware&lt;/h1&gt;
@@ -133,7 +144,8 @@ to track GPU usage&lt;/p&gt;
 &lt;li&gt;Shut down the mac&lt;/li&gt;
 &lt;li&gt;connect the eGPU and power it up&lt;/li&gt;
 &lt;li&gt;power the mac back&lt;/li&gt;
-&lt;/ul&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">udibr</dc:creator><pubDate>Fri, 14 Aug 2015 14:04:00 -0400</pubDate><guid>tag:udibr.github.io,2015-08-14:using-external-gtx-980-with-macbook-pro.html</guid></item><item><title>Tips on working with Theano</title><link>http://udibr.github.io/tips-on-working-with-theano.html</link><description>&lt;p&gt;Debugging Theano code is notoriously hard.
+&lt;/ul&gt;
+&lt;p&gt;http://forum.netkas.org/index.php?board=8.0&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">udibr</dc:creator><pubDate>Fri, 14 Aug 2015 14:04:00 -0400</pubDate><guid>tag:udibr.github.io,2015-08-14:using-external-gtx-980-with-macbook-pro.html</guid></item><item><title>Tips on working with Theano</title><link>http://udibr.github.io/tips-on-working-with-theano.html</link><description>&lt;p&gt;Debugging Theano code is notoriously hard.
 Perhaps the main reason is because the python code you just wrote is not executed.
 Instead, your python expressions are used to build a graph of what you want to compute.
 The graph is compiled into CPU or GPU code when you use something like
@@ -210,7 +222,10 @@ usually it is very cryptic but it can contain helpful hints.&lt;/p&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;I found that in many cases the GPU seats idle because the CPU is too slow feeding it with data. You can thread your CPU code etc but an easier solution will be to use the old code as is and run several experiments in parallel. For example, try different hyper parameter. Just open another shell and run a different experiment on the same GPU, Theano is fine with that.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">udibr</dc:creator><pubDate>Fri, 17 Jul 2015 18:11:00 -0400</pubDate><guid>tag:udibr.github.io,2015-07-17:tips-on-working-with-theano.html</guid></item><item><title>Command line for cleaning the cells of an ipython notebook</title><link>http://udibr.github.io/command-line-for-cleaning-the-cells-of-an-ipython-notebook.html</link><description>&lt;p&gt;Once in a while I have an ipython notebook that has so much stuff written into its output cells that it takes forever to open it in the browser. In some cases the browser crash, blocking me from reaching the menu option to clear all the cells in the notebook.&lt;/p&gt;
+&lt;p&gt;I found that in many cases the GPU seats idle because the CPU is too slow feeding it with data. You can thread your CPU code etc but an easier solution will be to use the old code as is and run several experiments in parallel. For example, try different hyper parameter. Just open another shell and run a different experiment on the same GPU, Theano is fine with that.&lt;/p&gt;
+&lt;p&gt;If you put “profile=True” into THEANO_FLAGS, it will analyse your program, showing a breakdown of how much is spent on each operation. Very handy for finding bottlenecks.&lt;/p&gt;
+&lt;p&gt;Theano tutorials
+&lt;a href="https://github.com/mila-udem/summerschool2015"&gt;Summer School 2015&lt;/a&gt;&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">udibr</dc:creator><pubDate>Fri, 17 Jul 2015 18:11:00 -0400</pubDate><guid>tag:udibr.github.io,2015-07-17:tips-on-working-with-theano.html</guid></item><item><title>Command line for cleaning the cells of an ipython notebook</title><link>http://udibr.github.io/command-line-for-cleaning-the-cells-of-an-ipython-notebook.html</link><description>&lt;p&gt;Once in a while I have an ipython notebook that has so much stuff written into its output cells that it takes forever to open it in the browser. In some cases the browser crash, blocking me from reaching the menu option to clear all the cells in the notebook.&lt;/p&gt;
 &lt;p&gt;I therefore wrote &lt;a href="https://gist.github.com/udibr/1d4c71b79dfd360b087d"&gt;this code&lt;/a&gt; to clear the output of all the cells (and the prompt numbers.) With it I can run the code as a command line before attempting to open the notebook from the ipython notebook server.&lt;/p&gt;
 &lt;p&gt;Code example:
 &lt;figure class='code'&gt;
