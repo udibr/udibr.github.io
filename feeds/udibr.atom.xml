@@ -1,15 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>udibr</title><link href="http://udibr.github.io/" rel="alternate"></link><link href="/feeds/udibr.atom.xml" rel="self"></link><id>http://udibr.github.io/</id><updated>2015-10-19T12:33:00-04:00</updated><entry><title>using external GTX 980 with MacBook Pro and El Capitan</title><link href="http://udibr.github.io/using-external-gtx-980-with-macbook-pro-and-el-capitan.html" rel="alternate"></link><updated>2015-10-19T12:33:00-04:00</updated><author><name>udibr</name></author><id>tag:udibr.github.io,2015-10-19:using-external-gtx-980-with-macbook-pro-and-el-capitan.html</id><summary type="html">&lt;p&gt;My external GPU was running just fine with yosemite but installong El Capitan broke things.
-So here is what to do:&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>udibr</title><link href="http://udibr.github.io/" rel="alternate"></link><link href="/feeds/udibr.atom.xml" rel="self"></link><id>http://udibr.github.io/</id><updated>2015-10-19T12:33:00-04:00</updated><entry><title>using external GTX 980 with MacBook Pro and El Capitan</title><link href="http://udibr.github.io/using-external-gtx-980-with-macbook-pro-and-el-capitan.html" rel="alternate"></link><updated>2015-10-19T12:33:00-04:00</updated><author><name>udibr</name></author><id>tag:udibr.github.io,2015-10-19:using-external-gtx-980-with-macbook-pro-and-el-capitan.html</id><summary type="html">&lt;p&gt;My &lt;a href="./using-external-gtx-980-with-macbook-pro.html"&gt;external GPU was running just fine with yosemite&lt;/a&gt; but installing El Capitan broke it.
+So here what finally worked:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="https://forums.developer.apple.com/thread/3981"&gt;Disable SIP&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Use version 0.9.6 of &lt;a href="https://github.com/goalque/automate-eGPU"&gt;automate-eGPU&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Unistall old configuation. For example:&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;    git clone https://github.com/goalque/automate-eGPU.git
     &lt;span class="nb"&gt;cd &lt;/span&gt;automate-eGPU
-    git checkout ada4d92ce0d04e1c0
+    chmod +x automate-eGPU.sh
+    &lt;span class="c"&gt;# maybe the following is not necessary&lt;/span&gt;
+    sudo ./automate-eGPU.sh
+    &lt;span class="c"&gt;# Reboot&lt;/span&gt;
+    sudo ./automate-eGPU.sh -uninstall
+    &lt;span class="c"&gt;# Reboot&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;Use version 0.9.6 of &lt;a href="https://github.com/goalque/automate-eGPU"&gt;automate-eGPU&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;    git checkout ada4d92ce0d04e1c0
     chmod +x automate-eGPU.sh
     sudo ./automate-eGPU.sh
+    &lt;span class="c"&gt;# Reboot&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>using external GTX 980 with MacBook Pro</title><link href="http://udibr.github.io/using-external-gtx-980-with-macbook-pro.html" rel="alternate"></link><updated>2015-08-14T14:04:00-04:00</updated><author><name>udibr</name></author><id>tag:udibr.github.io,2015-08-14:using-external-gtx-980-with-macbook-pro.html</id><summary type="html">&lt;h1&gt;Intro&lt;/h1&gt;
 &lt;p&gt;I have a working setup made from MacBook Pro (Retina, Mid 2012) connected to an external GPU card – GTX 980. The card is placed in PCIe box that is connected to the laptop with a thunderbolt 2 cable which gives a throughput of 10Gb/s (latter MBP supports 16Gb/s but the PCIe box is in any case limited to the lower rate.) The GPU also requires an external 500W power supply.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="external GPU connected to MacBook Pro" src="https://pbs.twimg.com/media/CDjmbmYWAAEE_SV.jpg" /&gt;&lt;/p&gt;

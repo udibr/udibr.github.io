@@ -1762,17 +1762,30 @@ jQuery(document).ready(function($) {
       <p class="meta"><time datetime="2015-10-19T12:33:00-04:00" pubdate>Mon 19 October 2015</time></p>
 </header>
 
-  <div class="entry-content"><p>My external GPU was running just fine with yosemite but installong El Capitan broke things.
-So here is what to do:</p>
+  <div class="entry-content"><p>My <a href="./using-external-gtx-980-with-macbook-pro.html">external GPU was running just fine with yosemite</a> but installing El Capitan broke it.
+So here what finally worked:</p>
 <ul>
 <li><a href="https://forums.developer.apple.com/thread/3981">Disable SIP</a></li>
-<li>Use version 0.9.6 of <a href="https://github.com/goalque/automate-eGPU">automate-eGPU</a></li>
+<li>Unistall old configuation. For example:</li>
 </ul>
 <div class="highlight"><pre>    git clone https://github.com/goalque/automate-eGPU.git
     <span class="nb">cd </span>automate-eGPU
-    git checkout ada4d92ce0d04e1c0
+    chmod +x automate-eGPU.sh
+    <span class="c"># maybe the following is not necessary</span>
+    sudo ./automate-eGPU.sh
+    <span class="c"># Reboot</span>
+    sudo ./automate-eGPU.sh -uninstall
+    <span class="c"># Reboot</span>
+</pre></div>
+
+
+<ul>
+<li>Use version 0.9.6 of <a href="https://github.com/goalque/automate-eGPU">automate-eGPU</a></li>
+</ul>
+<div class="highlight"><pre>    git checkout ada4d92ce0d04e1c0
     chmod +x automate-eGPU.sh
     sudo ./automate-eGPU.sh
+    <span class="c"># Reboot</span>
 </pre></div></div>
     <footer>
 <p class="meta">
