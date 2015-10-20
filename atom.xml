@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>udibr</title><link href="http://udibr.github.io/" rel="alternate"></link><link href="/atom.xml" rel="self"></link><id>http://udibr.github.io/</id><updated>2015-10-19T12:33:00-04:00</updated><entry><title>using external GTX 980 with MacBook Pro and El Capitan</title><link href="http://udibr.github.io/using-external-gtx-980-with-macbook-pro-and-el-capitan.html" rel="alternate"></link><updated>2015-10-19T12:33:00-04:00</updated><author><name>udibr</name></author><id>tag:udibr.github.io,2015-10-19:using-external-gtx-980-with-macbook-pro-and-el-capitan.html</id><summary type="html">&lt;p&gt;My &lt;a href="./using-external-gtx-980-with-macbook-pro.html"&gt;external GPU was running just fine with yosemite&lt;/a&gt; but installing El Capitan broke it.
-So here what finally worked:&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>udibr</title><link href="http://udibr.github.io/" rel="alternate"></link><link href="/atom.xml" rel="self"></link><id>http://udibr.github.io/</id><updated>2015-10-19T12:33:00-04:00</updated><entry><title>using external GTX 980 with MacBook Pro and El Capitan</title><link href="http://udibr.github.io/using-external-gtx-980-with-macbook-pro-and-el-capitan.html" rel="alternate"></link><updated>2015-10-19T12:33:00-04:00</updated><author><name>udibr</name></author><id>tag:udibr.github.io,2015-10-19:using-external-gtx-980-with-macbook-pro-and-el-capitan.html</id><summary type="html">&lt;p&gt;My &lt;a href="./using-external-gtx-980-with-macbook-pro.html"&gt;external GPU was running just fine with Yosemite&lt;/a&gt;
+but installing El Capitan broke it.
+Lucky for me I've found &lt;a href="https://github.com/goalque/automate-eGPU"&gt;automate-eGPU&lt;/a&gt;
+and after some experimenting I've found that version 0.9.6 works:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="https://forums.developer.apple.com/thread/3981"&gt;Disable SIP&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Unistall old configuation. For example:&lt;/li&gt;
+&lt;li&gt;Unistall old configuration. For example:&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;    git clone https://github.com/goalque/automate-eGPU.git
     &lt;span class="nb"&gt;cd &lt;/span&gt;automate-eGPU
@@ -17,7 +19,7 @@ So here what finally worked:&lt;/p&gt;
 
 
 &lt;ul&gt;
-&lt;li&gt;Use version 0.9.6 of &lt;a href="https://github.com/goalque/automate-eGPU"&gt;automate-eGPU&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Install and run version 0.9.6 of &lt;a href="https://github.com/goalque/automate-eGPU"&gt;automate-eGPU&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;    git checkout ada4d92ce0d04e1c0
     chmod +x automate-eGPU.sh
