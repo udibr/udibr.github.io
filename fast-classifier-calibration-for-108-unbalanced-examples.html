@@ -1776,8 +1776,8 @@ for unbalanced data (positive rates of 1/1000) and when the distribution of the
 scores is not a simple Gaussian for the positive and/or negative examples.</p>
 <p>The method is very simple:</p>
 <ul>
-<li>sort your scores (this expensive step can be parallelized)</li>
-<li>collect every 5 sorted scores to a cell</li>
+<li>sort your score examples (this expensive step can be parallelized)</li>
+<li>collect examples into a cell, moving from lowest to highest score. Once reaching 5 positive examples, finish the cell and start creating a new cell and so on...</li>
 <li>measure the true success rate of each cell</li>
 <li>move between the cells form low to high score and merge the next cell with the current cell whenever the true success rate falls</li>
 <li>re-compute the success rate of the merged cell, this can result in another merger with the cell just before the current cell and so on...</li>
