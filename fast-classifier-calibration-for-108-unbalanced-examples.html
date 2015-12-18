@@ -4,7 +4,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>using external GTX 980 with MacBook Pro and El Capitan</title>
+  <title>Fast classifier calibration for 10^8 unbalanced examples</title>
   <meta name="author" content="udibr">
 
   <link href="/atom.xml" type="application/atom+xml" rel="alternate"
@@ -1758,44 +1758,38 @@ jQuery(document).ready(function($) {
 <div>
   <article class="hentry" role="article">
 <header>
-      <h1 class="entry-title">using external GTX 980 with MacBook Pro and El Capitan</h1>
-      <p class="meta"><time datetime="2015-10-19T12:33:00-04:00" pubdate>Mon 19 October 2015</time></p>
+      <h1 class="entry-title">Fast classifier calibration for 10^8 unbalanced examples</h1>
+      <p class="meta"><time datetime="2015-12-17T21:08:00-05:00" pubdate>Thu 17 December 2015</time></p>
 </header>
 
-  <div class="entry-content"><p>My <a href="./using-external-gtx-980-with-macbook-pro.html">external GPU was running just fine with Yosemite</a>
-but installing El Capitan broke it.
-Lucky for me I've found <a href="https://github.com/goalque/automate-eGPU">automate-eGPU</a>
-and after some experimenting I've found that version 0.9.6 works:</p>
+  <div class="entry-content"><p>Sam Steingold has introduced MIMIC in
+<a href="http://www.meetup.com/NYC-Machine-Learning/events/227412933/">NYC Machine Learning meetup</a>.
+MIMIC is
+a method for calibrating the score of a binary classifier into probability.
+ The method is different from the usual
+<a href="http://fastml.com/classifier-calibration-with-platts-scaling-and-isotonic-regression/">Platts and Isotonic calibration</a></p>
+<p>Its advantage is that it is much faster than Isotonic calibration,
+and is capable of processing 10^8 examples in few hours, in addition it
+does not lose information in the way Isotonic calibration does.</p>
+<p>Compared to Platt (Logistic Regression) calibration it gives much better results
+for unbalanced data (positive rates of 1/1000) and when the distribution of the
+scores is not a simple Gaussian for the positive and/or negative examples.</p>
+<p>The method is very simple:</p>
 <ul>
-<li><a href="https://forums.developer.apple.com/thread/3981">Disable SIP</a></li>
-<li>Unistall old configuration. For example:</li>
-</ul>
-<div class="highlight"><pre>    git clone https://github.com/goalque/automate-eGPU.git
-    <span class="nb">cd </span>automate-eGPU
-    chmod +x automate-eGPU.sh
-    <span class="c"># maybe the following is not necessary</span>
-    sudo ./automate-eGPU.sh
-    <span class="c"># Reboot</span>
-    sudo ./automate-eGPU.sh -uninstall
-    <span class="c"># Reboot</span>
-</pre></div>
-
-
-<ul>
-<li>Install and run version 0.9.6 of <a href="https://github.com/goalque/automate-eGPU">automate-eGPU</a></li>
-</ul>
-<div class="highlight"><pre>    git checkout ada4d92ce0d04e1c0
-    chmod +x automate-eGPU.sh
-    sudo ./automate-eGPU.sh
-    <span class="c"># Reboot</span>
-</pre></div></div>
+<li>sort your scores (this expensive step can be parallelized)</li>
+<li>collect every 5 sorted scores to a cell</li>
+<li>measure the true success rate of each cell</li>
+<li>move between the cells form low to high score and merge the next cell with the current cell whenever the true success rate falls</li>
+<li>re-compute the success rate of the merged cell, this can result in another merger with the cell just before the current cell and so on...</li>
+<li>once finished you have a monotonic step function, which you can convert into a piece linear function.</li>
+</ul></div>
     <footer>
 <p class="meta">
   <span class="byline author vcard">
     Posted by <span class="fn">udibr</span>
   </span>
-<time datetime="2015-10-19T12:33:00-04:00" pubdate>Mon 19 October 2015</time></p><div class="sharing">
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://udibr.github.io/using-external-gtx-980-with-macbook-pro-and-el-capitan.html" data-via="udibr" data-counturl="http://udibr.github.io/using-external-gtx-980-with-macbook-pro-and-el-capitan.html" >Tweet</a>
+<time datetime="2015-12-17T21:08:00-05:00" pubdate>Thu 17 December 2015</time></p><div class="sharing">
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://udibr.github.io/fast-classifier-calibration-for-108-unbalanced-examples.html" data-via="udibr" data-counturl="http://udibr.github.io/fast-classifier-calibration-for-108-unbalanced-examples.html" >Tweet</a>
 </div>    </footer>
   </article>
 
@@ -1852,9 +1846,9 @@ and after some experimenting I've found that version 0.9.6 works:</p>
 </p></footer>
 	<script type="text/javascript">
 	  var disqus_shortname = 'udibr';
-          var disqus_identifier = '/using-external-gtx-980-with-macbook-pro-and-el-capitan.html';
-          var disqus_url = 'http://udibr.github.io/using-external-gtx-980-with-macbook-pro-and-el-capitan.html';
-          var disqus_title = 'using external GTX 980 with MacBook Pro and El Capitan';
+          var disqus_identifier = '/fast-classifier-calibration-for-108-unbalanced-examples.html';
+          var disqus_url = 'http://udibr.github.io/fast-classifier-calibration-for-108-unbalanced-examples.html';
+          var disqus_title = 'Fast classifier calibration for 10^8 unbalanced examples';
 	  (function() {
 	    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
 	    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';

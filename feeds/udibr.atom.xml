@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>udibr</title><link href="http://udibr.github.io/" rel="alternate"></link><link href="/feeds/udibr.atom.xml" rel="self"></link><id>http://udibr.github.io/</id><updated>2015-10-19T12:33:00-04:00</updated><entry><title>using external GTX 980 with MacBook Pro and El Capitan</title><link href="http://udibr.github.io/using-external-gtx-980-with-macbook-pro-and-el-capitan.html" rel="alternate"></link><updated>2015-10-19T12:33:00-04:00</updated><author><name>udibr</name></author><id>tag:udibr.github.io,2015-10-19:using-external-gtx-980-with-macbook-pro-and-el-capitan.html</id><summary type="html">&lt;p&gt;My &lt;a href="./using-external-gtx-980-with-macbook-pro.html"&gt;external GPU was running just fine with Yosemite&lt;/a&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>udibr</title><link href="http://udibr.github.io/" rel="alternate"></link><link href="/feeds/udibr.atom.xml" rel="self"></link><id>http://udibr.github.io/</id><updated>2015-12-17T21:08:00-05:00</updated><entry><title>Fast classifier calibration for 10^8 unbalanced examples</title><link href="http://udibr.github.io/fast-classifier-calibration-for-108-unbalanced-examples.html" rel="alternate"></link><updated>2015-12-17T21:08:00-05:00</updated><author><name>udibr</name></author><id>tag:udibr.github.io,2015-12-17:fast-classifier-calibration-for-108-unbalanced-examples.html</id><summary type="html">&lt;p&gt;Sam Steingold has introduced MIMIC in
+&lt;a href="http://www.meetup.com/NYC-Machine-Learning/events/227412933/"&gt;NYC Machine Learning meetup&lt;/a&gt;.
+MIMIC is
+a method for calibrating the score of a binary classifier into probability.
+ The method is different from the usual
+&lt;a href="http://fastml.com/classifier-calibration-with-platts-scaling-and-isotonic-regression/"&gt;Platts and Isotonic calibration&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Its advantage is that it is much faster than Isotonic calibration,
+and is capable of processing 10^8 examples in few hours, in addition it
+does not lose information in the way Isotonic calibration does.&lt;/p&gt;
+&lt;p&gt;Compared to Platt (Logistic Regression) calibration it gives much better results
+for unbalanced data (positive rates of 1/1000) and when the distribution of the
+scores is not a simple Gaussian for the positive and/or negative examples.&lt;/p&gt;
+&lt;p&gt;The method is very simple:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;sort your scores (this expensive step can be parallelized)&lt;/li&gt;
+&lt;li&gt;collect every 5 sorted scores to a cell&lt;/li&gt;
+&lt;li&gt;measure the true success rate of each cell&lt;/li&gt;
+&lt;li&gt;move between the cells form low to high score and merge the next cell with the current cell whenever the true success rate falls&lt;/li&gt;
+&lt;li&gt;re-compute the success rate of the merged cell, this can result in another merger with the cell just before the current cell and so on...&lt;/li&gt;
+&lt;li&gt;once finished you have a monotonic step function, which you can convert into a piece linear function.&lt;/li&gt;
+&lt;/ul&gt;</summary></entry><entry><title>using external GTX 980 with MacBook Pro and El Capitan</title><link href="http://udibr.github.io/using-external-gtx-980-with-macbook-pro-and-el-capitan.html" rel="alternate"></link><updated>2015-10-19T12:33:00-04:00</updated><author><name>udibr</name></author><id>tag:udibr.github.io,2015-10-19:using-external-gtx-980-with-macbook-pro-and-el-capitan.html</id><summary type="html">&lt;p&gt;My &lt;a href="./using-external-gtx-980-with-macbook-pro.html"&gt;external GPU was running just fine with Yosemite&lt;/a&gt;
 but installing El Capitan broke it.
 Lucky for me I've found &lt;a href="https://github.com/goalque/automate-eGPU"&gt;automate-eGPU&lt;/a&gt;
 and after some experimenting I've found that version 0.9.6 works:&lt;/p&gt;
